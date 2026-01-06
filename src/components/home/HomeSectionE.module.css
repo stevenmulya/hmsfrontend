@@ -1,0 +1,392 @@
+.sectionContent {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.containerStandard {
+  padding: 0 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.titleWrapper {
+  margin-bottom: 40px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible .titleWrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.titleLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.titleIcon {
+  color: #023E8A;
+  flex-shrink: 0;
+}
+
+.titleContainer {
+  width: 100%;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.buttonLineContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px;
+  flex: 1;
+}
+
+.buttonLine {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #023E8A, #1C7EBA);
+  min-width: 20px;
+}
+
+.seeAllButton {
+  color: #1C7EBA;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.seeAllButton:hover {
+  color: #023E8A;
+  text-decoration-thickness: 2px;
+}
+
+.blogsScrollWrapper {
+  position: relative;
+  min-height: 350px;
+  width: 100%;
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 12px;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #023E8A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.scrollContainer {
+  display: flex;
+  overflow-x: auto;
+  gap: 24px;
+  padding: 10px 40px 40px 40px;
+  width: 100%;
+  box-sizing: border-box;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.blogItemWrapper {
+  flex-shrink: 0;
+  width: 270px;
+  scroll-snap-align: start;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.visible .blogItemWrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.blogCardItem {
+  height: 100%;
+  width: 100%;
+}
+
+.spacerEnd {
+  flex-shrink: 0;
+  width: 10px;
+}
+
+.emptyStateContainer {
+  padding: 0 40px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+  font-size: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out 0.2s;
+}
+
+.visible .emptyState {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notFoundSection {
+  margin-top: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+  background: transparent;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out 0.4s;
+}
+
+.visible .notFoundSection {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notFoundText {
+  color: #023E8A;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+@media (max-width: 992px) {
+  .title {
+    font-size: 30px;
+  }
+  
+  .notFoundText {
+    font-size: 24px;
+  }
+  
+  .blogItemWrapper {
+    width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .containerStandard {
+    padding: 0 20px;
+  }
+  
+  .scrollContainer {
+    padding: 10px 20px 30px 20px;
+    gap: 16px;
+  }
+  
+  .titleWrapper {
+    margin-bottom: 30px;
+  }
+  
+  .titleLeft {
+    gap: 15px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  
+  .titleIcon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .titleSection {
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .buttonLineContainer {
+    width: 100%;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    display: flex;
+  }
+  
+  .buttonLine {
+    display: block;
+    flex: 1;
+  }
+  
+  .seeAllButton {
+    display: none;
+  }
+  
+  .title {
+    font-size: 28px;
+    white-space: normal;
+    flex-shrink: 0;
+  }
+  
+  .blogItemWrapper {
+    width: 240px;
+  }
+  
+  .notFoundSection {
+    padding: 30px 0;
+    margin-top: 20px;
+  }
+  
+  .notFoundText {
+    font-size: 22px;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .containerStandard {
+    padding: 0 16px;
+  }
+  
+  .scrollContainer {
+    padding: 10px 16px 30px 16px;
+    gap: 12px;
+  }
+
+  .titleLeft {
+    gap: 8px;
+    flex-shrink: 1;
+  }
+  
+  .titleIcon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .titleSection {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
+  
+  .buttonLineContainer {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+  }
+
+  .buttonLine {
+    display: block;
+  }
+  
+  .blogItemWrapper {
+    width: 220px;
+  }
+  
+  .notFoundSection {
+    padding: 20px 0;
+    margin-top: 10px;
+  }
+  
+  .notFoundText {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .blogItemWrapper {
+    width: 260px;
+  }
+  
+  .titleLeft {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .titleIcon {
+    display: none;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .notFoundSection {
+    padding: 15px 0;
+    margin-top: 25px;
+  }
+  
+  .notFoundText {
+    font-size: 18px;
+  }
+}

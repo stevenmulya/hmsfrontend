@@ -1,0 +1,232 @@
+/* ProductDetailSectionC.module.css */
+
+/* Section Container */
+.sectionContainer {
+  padding-bottom: var(--mantine-spacing-xl);
+}
+
+/* Section Header */
+.sectionHeader {
+  width: 100%;
+}
+
+/* Section Title */
+.sectionTitle {
+  color: var(--mantine-color-gray-8);
+  font-weight: 700;
+  font-size: var(--mantine-font-size-xl);
+}
+
+/* See All Button - Desktop */
+.seeAllButtonDesktop {
+  border: none !important;
+  background-color: transparent !important;
+  color: #1C7EBA !important;
+  font-weight: 600;
+  padding: 0.5rem 0 !important;
+  text-decoration: none !important;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.seeAllButtonDesktop:hover {
+  background-color: transparent !important;
+  color: #023E8A !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+  transform: none;
+  box-shadow: none;
+}
+
+.seeAllButtonDesktop:active {
+  transform: none;
+}
+
+/* Product Card Item - Custom styling untuk ProductCard di section ini */
+.productCardItem {
+  height: 100%;
+}
+
+/* Mobile See All Button Container */
+.mobileSeeAllButtonContainer {
+  display: none;
+  margin-top: var(--mantine-spacing-lg);
+  padding-top: var(--mantine-spacing-md);
+  border-top: 1px solid var(--mantine-color-gray-3);
+}
+
+/* Mobile See All Button */
+.seeAllButtonMobile {
+  border: none !important;
+  background-color: transparent !important;
+  color: #1C7EBA !important;
+  font-weight: 600;
+  padding: 0.75rem 0 !important;
+  text-decoration: none !important;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+  font-size: var(--mantine-font-size-md);
+}
+
+.seeAllButtonMobile:hover {
+  background-color: transparent !important;
+  color: #023E8A !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px;
+  transform: none;
+  box-shadow: none;
+}
+
+.seeAllButtonMobile:active {
+  transform: none;
+}
+
+/* Skeleton Loading */
+.skeletonCard {
+  border: 1px solid #EBEBEB;
+  border-radius: 12px;
+  padding: var(--mantine-spacing-md);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeletonImage {
+  border-radius: 8px;
+  margin-bottom: var(--mantine-spacing-xs);
+}
+
+.skeletonName {
+  border-radius: 4px;
+  margin: var(--mantine-spacing-xs) auto;
+}
+
+.skeletonButton {
+  border-radius: 8px;
+  margin-top: auto;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Focus States for Accessibility */
+.seeAllButtonDesktop:focus-visible,
+.seeAllButtonMobile:focus-visible {
+  outline: 2px solid #1C7EBA;
+  outline-offset: 2px;
+  border-radius: var(--mantine-radius-sm);
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .sectionContainer {
+    padding-bottom: var(--mantine-spacing-lg);
+  }
+
+  .sectionTitle {
+    font-size: var(--mantine-font-size-lg);
+  }
+
+  /* Sembunyikan desktop button pada mobile */
+  .seeAllButtonDesktop {
+    display: none !important;
+  }
+
+  /* Atur section header untuk mobile - hilangkan space-between */
+  .sectionHeader {
+    justify-content: flex-start !important;
+  }
+
+  /* Show mobile button container */
+  .mobileSeeAllButtonContainer {
+    display: block;
+  }
+
+  .skeletonCard {
+    padding: var(--mantine-spacing-sm);
+  }
+
+  .skeletonImage {
+    height: 140px;
+    margin-bottom: 6px;
+  }
+
+  .skeletonName {
+    height: 18px;
+    margin: 6px auto;
+  }
+
+  .skeletonButton {
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: var(--mantine-font-size-md);
+  }
+
+  .seeAllButtonMobile {
+    font-size: var(--mantine-font-size-sm);
+  }
+
+  .skeletonCard {
+    padding: 10px;
+  }
+
+  .skeletonImage {
+    height: 120px;
+  }
+
+  .skeletonName {
+    height: 16px;
+  }
+
+  .skeletonButton {
+    height: 28px;
+  }
+}
+
+@media (max-width: 360px) {
+  .sectionContainer {
+    padding-bottom: var(--mantine-spacing-md);
+  }
+
+  .mobileSeeAllButtonContainer {
+    margin-top: var(--mantine-spacing-md);
+    padding-top: var(--mantine-spacing-sm);
+  }
+
+  .skeletonCard {
+    padding: 8px;
+  }
+
+  .skeletonImage {
+    height: 110px;
+  }
+
+  .skeletonButton {
+    height: 26px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .skeletonCard {
+    animation: none;
+  }
+  
+  .seeAllButtonDesktop,
+  .seeAllButtonMobile {
+    transition: none !important;
+  }
+}

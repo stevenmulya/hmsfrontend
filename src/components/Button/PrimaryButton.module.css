@@ -1,0 +1,101 @@
+/* components/Button/PrimaryButton.module.css */
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 36px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 8px;
+  background: linear-gradient(to right, #023E8A, #1C7EBA);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.primaryButton span {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.primaryButton svg {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.primaryButton::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: #ffffff;
+  transition: height 0.3s ease;
+  z-index: 1;
+}
+
+.primaryButton:hover::before {
+  height: 100%;
+}
+
+.primaryButton:hover span {
+  color: #023E8A;
+}
+
+.primaryButton:hover svg {
+  color: #023E8A;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(2, 62, 138, 0.3);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.primaryButton:focus-visible {
+  outline: 2px solid #023E8A;
+  outline-offset: 2px;
+}
+
+.primaryButton.fullWidth {
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .primaryButton {
+    padding: 14px 28px;
+    font-size: 14px;
+  }
+  
+  .primaryButton svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .primaryButton {
+    padding: 12px 24px;
+    font-size: 13px;
+    gap: 10px;
+  }
+  
+  .primaryButton svg {
+    width: 16px;
+    height: 16px;
+  }
+}

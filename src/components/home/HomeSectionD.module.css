@@ -1,0 +1,339 @@
+.sectionContent {
+  width: 100%;
+}
+
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 60px;
+  width: 100%;
+  
+  /* Animation props */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.visible .titleWrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background: linear-gradient(to right, #023E8A, #1C7EBA);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: #023E8A;
+}
+
+.title {
+  flex-shrink: 0;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #023E8A;
+  line-height: 1.2;
+  white-space: normal;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.scrollBox {
+  position: relative;
+  min-height: 400px;
+  width: 100%;
+  margin-top: 20px;
+
+  /* Animation props */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s; /* Delay 0.2s */
+}
+
+.visible .scrollBox {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #023E8A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.scrollContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 2%,
+    black 98%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 2%,
+    black 98%,
+    transparent 100%
+  );
+}
+
+.scrollContent {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.scrollContainer:hover .scrollContent {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 300px;
+  margin-right: 24px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.cardLink:hover {
+  transform: translateY(-5px);
+}
+
+.activityCard {
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.activityCard:hover {
+  box-shadow: 0 15px 30px rgba(28, 126, 186, 0.15);
+  border-color: #1C7EBA;
+}
+
+.cardImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.cardOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 2;
+}
+
+.textWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  z-index: 3;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+  color: white;
+}
+
+.cardDateWrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+  font-size: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+}
+
+@media (max-width: 1200px) {
+  .cardLink {
+    width: 280px;
+  }
+  
+  .activityCard {
+    height: 380px;
+  }
+}
+
+@media (max-width: 992px) {
+  .title {
+    font-size: 30px;
+  }
+  
+  .titleWrapper {
+    margin-bottom: 50px;
+  }
+  
+  .cardLink {
+    width: 260px;
+    margin-right: 20px;
+  }
+  
+  .activityCard {
+    height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .titleWrapper {
+    margin-bottom: 40px;
+    gap: 15px;
+  }
+  
+  .title {
+    font-size: 28px;
+    white-space: normal;
+  }
+  
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .cardLink {
+    width: 220px;
+    margin-right: 16px;
+  }
+  
+  .activityCard {
+    height: 320px;
+  }
+  
+  .cardTitle {
+    font-size: 18px;
+  }
+  
+  .scrollContent {
+    animation: scroll 30s linear infinite;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleWrapper {
+    margin-bottom: 30px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .cardLink {
+    width: 200px;
+  }
+  
+  .activityCard {
+    height: 300px;
+  }
+  
+  .cardTitle {
+    font-size: 16px;
+  }
+  
+  .cardDateWrapper {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  
+  .textWrapper {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .title {
+    font-size: 22px;
+  }
+  
+  .activityCard {
+    height: 280px;
+  }
+  
+  .cardTitle {
+    font-size: 15px;
+  }
+}

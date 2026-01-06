@@ -1,0 +1,166 @@
+/* components/ProductCard/ProductGridContainer.module.css */
+
+.container {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+/* Section Header */
+.sectionHeader {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+}
+
+/* Grid Layout */
+.productsGrid {
+  display: grid;
+  gap: 20px;
+}
+
+/* Responsive Grid Classes */
+.gridCols1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.gridCols2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.gridColsSm3 {
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.gridColsMd5 {
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Grid Item */
+.gridItem {
+  height: 100%;
+}
+
+/* Loading State */
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .loadingGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .loadingGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.skeletonCard {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  background: white;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 160px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.skeletonName {
+  width: 80%;
+  height: 20px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  margin: 0 auto 8px;
+}
+
+.skeletonButton {
+  width: 100%;
+  height: 40px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  margin-top: auto;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Error State */
+.errorContainer {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+}
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 20px;
+  }
+  
+  .loadingGrid {
+    gap: 16px;
+  }
+  
+  .skeletonCard {
+    padding: 12px;
+  }
+  
+  .skeletonImage {
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loadingGrid {
+    gap: 12px;
+  }
+  
+  .skeletonCard {
+    padding: 10px;
+  }
+  
+  .skeletonImage {
+    height: 120px;
+  }
+  
+  .skeletonName {
+    height: 18px;
+  }
+  
+  .skeletonButton {
+    height: 36px;
+  }
+}

@@ -1,0 +1,378 @@
+/* sections/about/AboutSectionE.module.css */
+
+.sectionContent {
+  width: 100%;
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.gridLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Left Column: Gambar Map */
+.imageColumn {
+  width: 100%;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #FEC909;
+}
+
+.mapImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.imageContainer:hover .mapImage {
+  transform: scale(1.03);
+}
+
+/* Right Column: Content */
+.contentColumn {
+  display: flex;
+  align-items: center;
+}
+
+.contentWrapper {
+  width: 100%;
+}
+
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0 0 15px 0;
+  background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.goldDash {
+  width: 100%;
+  height: 0;
+  border-bottom: 5px dashed #FFDF01;
+  transform: skewX(-20deg);
+  transform-origin: left;
+}
+
+/* Info Container */
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.infoSection {
+  background: #E8F2F8;
+  padding: 30px;
+  border-radius: 8px;
+  border-bottom: 5px solid #1C7EBA;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.infoSection:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.infoItem {
+  display: flex;
+  align-items: center; /* Ubah dari flex-start ke center */
+  gap: 30px;
+}
+
+.icon {
+  flex-shrink: 0;
+  /* margin-top: 5px; dihapus karena sudah align center */
+}
+
+.infoContent {
+  flex: 1;
+}
+
+/* Address text 16px */
+.addressText {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #000000;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Perbaikan layout jam operasional */
+.hoursWrapper {
+  width: 100%;
+}
+
+.hoursItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Pastikan center vertical */
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+}
+
+/* Day text 16px */
+.dayText {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1; /* Pastikan line-height sama */
+}
+
+/* Hours text 16px */
+.hoursText {
+  font-size: 16px;
+  font-weight: 800;
+  color: #000000;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+  border: none;
+  line-height: 1; /* Pastikan line-height sama */
+}
+
+/* Mobile Styles - 0px padding left right */
+@media (max-width: 992px) {
+  .sectionContent {
+    padding: 60px 0;
+  }
+  
+  .container {
+    padding: 0 !important;
+  }
+  
+  .gridLayout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .imageColumn {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 20px;
+  }
+  
+  .contentColumn {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 20px;
+  }
+  
+  .imageContainer {
+    height: 350px !important;
+    border-left-width: 4px;
+    margin-bottom: 0;
+  }
+  
+  .titleWrapper {
+    align-items: flex-start;
+  }
+  
+  .title {
+    text-align: left;
+    font-size: 26px;
+  }
+  
+  .goldDash {
+    margin: 0;
+    max-width: 100%;
+  }
+  
+  .infoContainer {
+    align-items: flex-start;
+  }
+  
+  .infoSection {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .infoItem {
+    flex-direction: row;
+    align-items: center; /* Tetap center di mobile */
+    text-align: left;
+    gap: 20px;
+  }
+  
+  /* Perkecil font untuk mobile */
+  .addressText,
+  .dayText,
+  .hoursText {
+    font-size: 14px;
+    line-height: 1.2; /* Sama untuk mobile */
+  }
+  
+  .hoursItem {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; /* Tetap center */
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionContent {
+    padding: 50px 0;
+  }
+  
+  .imageColumn,
+  .contentColumn {
+    padding: 0 15px;
+  }
+  
+  .imageContainer {
+    height: 300px !important;
+    border-left-width: 3px;
+  }
+  
+  .title {
+    font-size: 24px;
+    white-space: normal;
+  }
+  
+  .infoSection {
+    padding: 25px 20px;
+  }
+  
+  /* Perkecil font untuk tablet */
+  .addressText,
+  .dayText,
+  .hoursText {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  
+  .infoItem {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sectionContent {
+    padding: 40px 0;
+  }
+  
+  .imageColumn,
+  .contentColumn {
+    padding: 0 10px;
+  }
+  
+  .imageContainer {
+    height: 250px !important;
+    border-left-width: 2px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .goldDash {
+    max-width: 100%;
+    border-bottom-width: 4px;
+  }
+  
+  .infoSection {
+    padding: 20px 15px;
+  }
+  
+  /* Perkecil font untuk mobile kecil */
+  .addressText,
+  .dayText,
+  .hoursText {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .infoItem {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .sectionContent {
+    padding: 30px 0;
+  }
+  
+  .imageContainer {
+    height: 200px !important;
+    border-left-width: 1px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .goldDash {
+    max-width: 100%;
+    border-bottom-width: 3px;
+  }
+  
+  .infoContainer {
+    gap: 25px;
+  }
+  
+  .infoSection {
+    padding: 15px 12px;
+  }
+  
+  /* Perkecil font untuk mobile sangat kecil */
+  .addressText,
+  .dayText,
+  .hoursText {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .infoItem {
+    gap: 10px;
+  }
+}

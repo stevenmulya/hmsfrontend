@@ -1,0 +1,88 @@
+/* Section A: Banner */
+.bannerSection {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* 1. Tambahkan margin-top untuk jarak dari header */
+  /* (Asumsi tinggi header 70px dari AppLayout) */
+  margin-top: 70px; 
+}
+
+.bannerOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.bannerTitle {
+  font-size: var(--mantine-font-size-xxl);
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Section B: Content */
+.contentSection {
+  padding-top: var(--mantine-spacing-xl);
+  /* 2. Tambahkan margin-bottom untuk jarak ke footer */
+  padding-bottom: var(--mantine-spacing-xl); 
+  margin-bottom: var(--mantine-spacing-xl); /* Margin ekstra */
+  line-height: 1.6;
+}
+
+.contentSection p,
+.contentSection li {
+  color: var(--mantine-color-gray-8);
+}
+
+.tableOfContents {
+  background-color: var(--mantine-color-gray-0);
+  border: 1px solid var(--mantine-color-gray-2);
+  border-radius: var(--mantine-radius-md);
+  padding: var(--mantine-spacing-md);
+}
+
+.tableOfContents ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.tableOfContents li {
+  margin-bottom: var(--mantine-spacing-xs);
+}
+.tableOfContents a {
+  text-decoration: none;
+  color: var(--mantine-color-blue-6);
+  transition: color 0.2s ease;
+}
+.tableOfContents a:hover {
+  color: var(--mantine-color-blue-8);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bannerSection {
+    height: 180px;
+    margin-top: 70px; /* Pertahankan margin top */
+  }
+  .bannerTitle {
+    font-size: var(--mantine-font-size-xl);
+  }
+  .contentSection {
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+  }
+}

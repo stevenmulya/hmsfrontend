@@ -1,0 +1,264 @@
+.sectionWrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden; /* Mencegah scrollbar horizontal jika ornamen keluar */
+}
+
+.sectionContent {
+  width: 100%;
+  position: relative;
+  z-index: 2; /* Konten di atas ornamen */
+}
+
+/* --- TITLE --- */
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 60px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background: linear-gradient(to right, #023E8A, #1C7EBA);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: #023E8A;
+}
+
+.title {
+  flex-shrink: 0;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #023E8A;
+  line-height: 1.2;
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* --- CARD GRID --- */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  padding: 0 50px;
+  position: relative;
+  z-index: 2;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  gap: 25px;
+  overflow: hidden;
+  text-align: left;
+  align-items: center;
+  background: transparent;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.cardImage {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%);
+  border-bottom: 4px solid #FFDF01;
+}
+
+.cardContent {
+  padding: 20px;
+  padding-left: 0;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #023E8A;
+  margin: 0 0 5px 0;
+  line-height: 1.3;
+}
+
+.cardSeparator {
+  width: 80%;
+  height: 0;
+  border-bottom: 5px dashed #FFDF01;
+  margin: 0;
+  transform: skewX(-20deg);
+  transform-origin: left;
+}
+
+.cardDescription {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* --- ORNAMENT --- */
+.svgOrnamentWrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0; /* Menempel ke ujung kanan layar */
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 1; /* Di bawah konten, di atas background */
+  opacity: 0.6;
+}
+
+.svgOrnament {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-origin: bottom right; 
+}
+
+.ornamentPath {
+  opacity: 0;
+  transform: translate(20px, 20px);
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ANIMATION TRIGGERS */
+.visible .titleWrapper,
+.visible .card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visible .ornamentPath:nth-of-type(1) {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition-delay: 0.7s;
+}
+
+.visible .ornamentPath:nth-of-type(2) {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition-delay: 0.9s;
+}
+
+.visible .ornamentPath:nth-of-type(3) {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition-delay: 1.1s;
+}
+
+@media (max-width: 1200px) {
+  .cardGrid {
+    gap: 30px;
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .title { font-size: 30px; }
+  .cardTitle { font-size: 18px; }
+  .cardDescription { font-size: 15px; }
+  .svgOrnamentWrapper { width: 300px; height: 300px; }
+}
+
+@media (max-width: 768px) {
+  .svgOrnamentWrapper {
+    display: none;
+  }
+
+  .titleWrapper {
+    margin-bottom: 30px;
+    gap: 15px;
+  }
+  
+  .title {
+    font-size: 26px;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 16px;
+    max-width: 100%;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    gap: 0;
+    min-height: auto;
+  }
+
+  .cardImage {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    clip-path: none;
+    border-radius: 0;
+    border-bottom: none;
+    height: auto;
+  }
+
+  .cardContent {
+    padding: 20px;
+    text-align: left;
+    background: #fff;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #023E8A;
+    padding-bottom: 0;
+  }
+
+  .cardSeparator {
+    width: 120px;
+    height: 3px;
+    background-color: #FFDF01;
+    border: none;
+    margin: 0 0 12px 0;
+    transform: none;
+    border-radius: 2px;
+  }
+
+  .cardDescription {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 22px;
+  }
+  
+  .cardContent {
+    padding: 16px;
+  }
+  
+  .cardTitle {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,86 @@
+/* Section A: Banner (Mirip Terms Page) */
+.bannerSection {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px; /* Jarak dari header (sesuaikan jika header tidak 70px) */
+}
+
+.bannerOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+}
+
+.bannerTitle {
+  font-size: var(--mantine-font-size-xxl);
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Section B: Content */
+.contentSection {
+  padding-top: var(--mantine-spacing-xl);
+  padding-bottom: var(--mantine-spacing-xl);
+  margin-bottom: var(--mantine-spacing-xl); /* Jarak ke footer */
+  line-height: 1.6;
+}
+
+.contentTitle {
+  color: #333;
+  font-weight: 700;
+}
+
+/* Styling Timeline */
+.timelineItem {
+  /* Beri jarak lebih antar item */
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.timelineItem > div:first-of-type {
+  /* Styling bullet/ikon */
+  /* (Mantine sudah menangani ini dengan baik) */
+}
+
+.timelineItem > div:last-of-type {
+  /* Styling konten (title + description) */
+  padding-left: var(--mantine-spacing-lg); /* Jarak dari garis timeline */
+}
+
+.timelineItem [class*="mantine-Timeline-itemTitle"] {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #023E8A; /* Warna biru */
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bannerSection {
+    height: 180px;
+    margin-top: 70px;
+  }
+  .bannerTitle {
+    font-size: var(--mantine-font-size-xl);
+  }
+  .contentSection {
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+  }
+  .timelineItem [class*="mantine-Timeline-itemTitle"] {
+    font-size: 1.1rem;
+  }
+}

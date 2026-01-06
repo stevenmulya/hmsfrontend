@@ -1,0 +1,211 @@
+/* components/ProductCard/ProductCard.module.css */
+
+/* Product Card Container - Background putih, border abu-abu */
+.productCard {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: #1C7EBA !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation delays */
+.productCard:nth-child(1) { animation-delay: 0.1s; }
+.productCard:nth-child(2) { animation-delay: 0.2s; }
+.productCard:nth-child(3) { animation-delay: 0.3s; }
+.productCard:nth-child(4) { animation-delay: 0.4s; }
+.productCard:nth-child(5) { animation-delay: 0.5s; }
+.productCard:nth-child(6) { animation-delay: 0.6s; }
+.productCard:nth-child(7) { animation-delay: 0.7s; }
+.productCard:nth-child(8) { animation-delay: 0.8s; }
+.productCard:nth-child(9) { animation-delay: 0.9s; }
+.productCard:nth-child(10) { animation-delay: 1s; }
+
+/* Image Container */
+.imageContainer {
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  background: #f8fafc;
+  position: relative;
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  background: #ffffff;
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.05);
+}
+
+/* Stock Overlay */
+.stockOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  border-radius: 8px;
+}
+
+.stockOverlay span {
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Product Name Link */
+.productNameLink {
+  text-decoration: none;
+  flex: 1;
+  margin-bottom: 12px;
+}
+
+/* Product Name - 14px */
+.productName {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0;
+  line-height: 1.4;
+  min-height: 2.6em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.productNameLink:hover .productName {
+  color: #1C7EBA;
+  text-decoration: underline;
+}
+
+/* Add to Cart Button - 16px */
+.addToCartButton {
+  background: transparent;
+  border: none;
+  color: #023E8A;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.addToCartButton:hover:not(:disabled) {
+  background: rgba(2, 62, 138, 0.1);
+  text-decoration-thickness: 2px;
+}
+
+.addToCartButton:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.addToCartButton:disabled:hover {
+  background: transparent;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .productCard {
+    padding: 12px;
+  }
+  
+  .imageContainer {
+    height: 140px;
+    margin-bottom: 8px;
+  }
+  
+  .productName {
+    font-size: 13px;
+    min-height: 2.4em;
+    margin-bottom: 8px;
+  }
+  
+  .addToCartButton {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+  
+  .stockOverlay span {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .productCard {
+    padding: 10px;
+  }
+  
+  .imageContainer {
+    height: 120px;
+  }
+  
+  .productName {
+    font-size: 12px;
+    min-height: 2.2em;
+    margin-bottom: 6px;
+  }
+  
+  .addToCartButton {
+    font-size: 13px;
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  
+  .addToCartButton svg {
+    width: 14px;
+    height: 14px;
+  }
+}

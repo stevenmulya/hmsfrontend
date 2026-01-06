@@ -1,0 +1,304 @@
+/* sections/about/AboutSectionC.module.css */
+
+.sectionContent {
+  width: 100%;
+  padding: 80px 0;
+  background: #ffffff;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.gridLayout {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Left Column: Image Stack - 40% */
+.imageColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: auto; /* Akan di-set via JS */
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px; /* Diperkecil dari 12px */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.imageTop,
+.imageBottom {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.5s ease;
+}
+
+.imageContainer:hover .imageTop,
+.imageContainer:hover .imageBottom {
+  transform: scale(1.05);
+}
+
+/* Right Column: Content - 60% */
+.contentColumn {
+  display: flex;
+  align-items: flex-start;
+}
+
+.contentWrapper {
+  width: 100%;
+}
+
+.titleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.profileTitle {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.dashContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.goldDash {
+  width: 100%;
+  max-width: 600px;
+  height: 0;
+  border-bottom: 5px dashed #FFDF01;
+  transform: skewX(-20deg);
+  transform-origin: left;
+}
+
+.descriptionContainer {
+  padding-right: 40px;
+}
+
+.descriptionText {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333333;
+  margin: 0 0 25px 0;
+  text-align: justify;
+}
+
+.descriptionText:last-child {
+  margin-bottom: 0;
+}
+
+/* Warna untuk kata kunci */
+.highlighted {
+  color: #023E8A;
+  font-weight: 700;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 30px;
+  }
+  
+  .gridLayout {
+    gap: 50px;
+  }
+  
+  .profileTitle {
+    font-size: 32px;
+  }
+  
+  .descriptionText {
+    font-size: 17px;
+  }
+  
+  .goldDash {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sectionContent {
+    padding: 60px 0;
+  }
+  
+  .gridLayout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .imageColumn {
+    max-width: 600px;
+    margin: 0 auto;
+    height: auto !important;
+  }
+  
+  .contentColumn {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .imageContainer {
+    height: 300px !important;
+  }
+  
+  .titleWrapper {
+    align-items: center;
+  }
+  
+  .profileTitle {
+    text-align: center;
+  }
+  
+  .dashContainer {
+    justify-content: center;
+  }
+  
+  .descriptionContainer {
+    padding-right: 0;
+  }
+  
+  .descriptionText {
+    text-align: center;
+  }
+  
+  .goldDash {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionContent {
+    padding: 50px 0;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .imageColumn {
+    gap: 20px;
+  }
+  
+  .imageContainer {
+    height: 250px !important;
+  }
+  
+  .titleContainer {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 12px;
+  }
+  
+  .profileTitle {
+    font-size: 28px;
+    text-align: center;
+    white-space: normal;
+  }
+  
+  .goldDash {
+    max-width: 350px;
+    border-bottom-width: 4px;
+  }
+  
+  .descriptionText {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sectionContent {
+    padding: 40px 0;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+  
+  .imageContainer {
+    height: 200px !important;
+  }
+  
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .profileTitle {
+    font-size: 24px;
+  }
+  
+  .goldDash {
+    max-width: 300px;
+  }
+  
+  .descriptionText {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .sectionContent {
+    padding: 30px 0;
+  }
+  
+  .imageContainer {
+    height: 180px !important;
+  }
+  
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .profileTitle {
+    font-size: 20px;
+  }
+  
+  .goldDash {
+    max-width: 250px;
+    border-bottom-width: 3px;
+  }
+  
+  .descriptionText {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+}

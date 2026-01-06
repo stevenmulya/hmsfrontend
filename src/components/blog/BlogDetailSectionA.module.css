@@ -1,0 +1,116 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.blogTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #333;
+}
+
+.categoryLink {
+  text-decoration: none;
+}
+.categoryLink:hover {
+  text-decoration: underline;
+}
+
+.contentSeparator {
+  width: 100%;
+  height: 0;
+  border-bottom: 4px dashed #FFDF01;
+  margin: var(--mantine-spacing-sm) 0;
+  transform: skewX(-20deg);
+  transform-origin: left;
+}
+
+.mainImageCard {
+   overflow: hidden;
+}
+
+.mainImage {
+   height: 400px;
+   width: 100%;
+   object-fit: cover;
+}
+
+.thumbnail {
+  cursor: pointer;
+  border-radius: var(--mantine-radius-sm);
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  aspect-ratio: 1 / 1;
+}
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumbnail:hover {
+  border-color: var(--mantine-color-gray-4);
+}
+.activeThumbnail {
+  border-color: #023E8A;
+}
+
+.blogContentHtml {
+  color: var(--mantine-color-gray-8);
+  line-height: 1.7;
+  font-size: var(--mantine-font-size-md);
+}
+.blogContentHtml p { margin-bottom: var(--mantine-spacing-md); }
+.blogContentHtml ul, .blogContentHtml ol { margin: var(--mantine-spacing-md) 0; padding-left: var(--mantine-spacing-xl); }
+.blogContentHtml li { margin-bottom: var(--mantine-spacing-xs); }
+.blogContentHtml h1, .blogContentHtml h2, .blogContentHtml h3, .blogContentHtml h4 {
+   font-weight: 600; color: #222;
+   margin-bottom: var(--mantine-spacing-sm);
+   margin-top: var(--mantine-spacing-lg);
+}
+.blogContentHtml img { max-width: 100%; height: auto; border-radius: var(--mantine-radius-sm); }
+.blogContentHtml p:last-of-type {
+  margin-bottom: 0;
+}
+.blogContentHtml > :last-child {
+   margin-bottom: 0;
+}
+
+.contentBackground {
+  background-color: #F9F9F9;
+  padding: var(--mantine-spacing-xs); 
+  border-radius: var(--mantine-radius-md);
+  border: 1px solid var(--mantine-color-gray-2);
+}
+
+@media (max-width: 768px) {
+  .blogTitle {
+    font-size: 2rem;
+  }
+  .mainImage {
+    height: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .blogTitle {
+    font-size: 1.6rem;
+  }
+  .mainImage {
+    height: 250px;
+  }
+}

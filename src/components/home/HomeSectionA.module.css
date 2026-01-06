@@ -1,0 +1,250 @@
+@keyframes revealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fullScreenWrapper {
+  position: relative;
+  width: 100%; 
+  height: 100vh;
+  overflow: hidden;
+  background-color: #0b0b0b;
+}
+
+.sliderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1), visibility 1.8s;
+  z-index: 1;
+}
+
+.activeSlide {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.12);
+  transform-origin: center center;
+  transition: transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.activeSlide .slideImage {
+  transform: scale(1);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(2, 62, 138, 0.4) 100%); 
+  z-index: 2;
+}
+
+.diagonalOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.7) 0%, 
+    rgba(0, 0, 0, 0.0) 100%, 
+    transparent 0%, 
+    transparent 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.contentBox {
+  position: absolute;
+  top: 50%; 
+  left: 10vw; 
+  transform: translateY(-50%);
+  z-index: 4;
+  color: white;
+  text-align: left;
+  max-width: 650px;
+}
+
+.revealWrapper {
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.title1 {
+  font-size: 1.5rem; 
+  font-weight: 700;
+  margin: 50px 0 10px 0; 
+  color: #FFDF01;
+  font-style: italic; 
+  text-transform: uppercase;
+  opacity: 0;
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.title2 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0 200px 30px 0;
+  line-height: 1.2;
+  color: #ffffff;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+.btnContainer {
+  opacity: 0;
+  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5; 
+  background-color: rgba(232, 242, 248, 0.15); 
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  color: #fff; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: revealUp 1s ease-out 1.2s forwards;
+}
+
+.navButton:hover {
+  background-color: #fff;
+  color: #1C7EBA;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevButton {
+  left: 30px;
+}
+
+.nextButton {
+  right: 30px;
+}
+
+.dotsContainer {
+  position: absolute;
+  bottom: 40px;
+  width: 100%; 
+  display: flex;
+  justify-content: center; 
+  gap: 12px; 
+  z-index: 5;
+  opacity: 0;
+  animation: revealUp 1s ease-out 1.2s forwards;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.4s ease;
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dot.activeDot {
+  background: #ffffff;
+  border-color: #ffffff;
+  transform: scale(1.2); 
+}
+
+@media (max-width: 768px) {
+  .fullScreenWrapper {
+    height: 100vh;
+  }
+
+  .navButton {
+    display: none;
+  }
+  
+  .contentBox {
+    left: 5vw; 
+    top: 50%; 
+    transform: translateY(-50%);
+    width: 90%; 
+    max-width: none;
+    text-align: left; 
+    padding: 0;
+  }
+
+  .title1 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+
+  .title2 {
+    font-size: 2.8rem;
+    margin: 10px 0 25px 0;
+    line-height: 1.2;
+  }
+  
+  .dotsContainer {
+    bottom: 40px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .fullScreenWrapper {
+    height: 100vh;
+  }
+  
+  .title1 {
+    font-size: 1rem;
+  }
+  
+  .title2 {
+    font-size: 2.2rem;
+    margin: 10px 0 20px 0;
+  }
+  
+  .dotsContainer {
+    bottom: 30px;
+  }
+}

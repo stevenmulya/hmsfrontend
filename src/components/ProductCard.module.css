@@ -1,0 +1,10 @@
+.card {
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--mantine-shadow-md);
+}
