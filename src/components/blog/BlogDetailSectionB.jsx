@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import apiClient from '../../api/apiClient';
 import styles from './BlogDetailSectionB.module.css';
-import { IconArticle, IconArrowRight } from '@tabler/icons-react';
 
 const MAX_RELATED_POSTS = 4;
 
@@ -76,7 +75,6 @@ export default function BlogDetailSectionB({ categorySlug, currentBlogSlug }) {
   return (
     <section className={styles.sectionWrapper}>
       <div className={`${styles.titleWrapper} ${styles.fadeInUp}`}>
-        <IconArticle size={32} className={styles.titleIcon} />
         <h3 className={styles.title}>
           Related News
         </h3>
@@ -114,21 +112,6 @@ export default function BlogDetailSectionB({ categorySlug, currentBlogSlug }) {
             </div>
           </Link>
         ))}
-      </div>
-
-      <div 
-        className={`${styles.seeMoreWrapper} ${styles.fadeInUp}`} 
-        style={{ animationDelay: '0.4s' }}
-      >
-        <Link
-          to="/blog"
-          className={styles.sectionReadMoreButton}
-        >
-          <span className={styles.buttonContentWrapper}>
-            See More News & Events
-            <IconArrowRight size={16} />
-          </span>
-        </Link>
       </div>
     </section>
   );

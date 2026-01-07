@@ -4,7 +4,7 @@ import styles from './SectionTemplate.module.css';
 
 export default function SectionTemplate({ 
   children, 
-  backgroundColor = '#ffffff',
+  backgroundColor = 'transparent',
   className = '',
   fullWidth = false
 }) {

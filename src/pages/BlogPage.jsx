@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import apiClient from '../api/apiClient';
 import styles from './BlogPage.module.css';
@@ -66,10 +66,6 @@ export default function BlogPage() {
   const debouncedSearch = useDebounce(search, 500);
 
   const [totalPages, setTotalPages] = useState(1);
-  const [totalBlogs, setTotalBlogs] = useState(0);
-  const [blogsFrom, setBlogsFrom] = useState(0);
-  const [blogsTo, setBlogsTo] = useState(0);
-
   const bannerImageUrl = '/blogbanner.png'; 
   const abortControllerRef = useRef(null);
 
@@ -133,11 +129,7 @@ export default function BlogPage() {
       .then(response => {
         setBlogs(response.data.data || []);
         const meta = response.data.meta || {};
-        
         setTotalPages(meta.last_page || 1);
-        setTotalBlogs(meta.total || 0);
-        setBlogsFrom(meta.from || 0);
-        setBlogsTo(meta.to || 0);
       })
       .catch(err => {
         if (err.name === 'CanceledError' || err.code === "ERR_CANCELED") return;
@@ -207,18 +199,8 @@ export default function BlogPage() {
      }
   };
 
-  const blogCountDisplay = useMemo(() => {
-    if (loadingBlogs) return <div className={styles.loadingCount}></div>;
-    if (errorBlogs || totalBlogs === 0) return <div className={styles.dimmedText}>Tidak ada post.</div>;
-    return (
-      <div className={styles.dimmedText}>
-        {`Menampilkan ${blogsFrom}-${blogsTo} dari ${totalBlogs} post`}
-      </div>
-    );
-  }, [loadingBlogs, blogsFrom, blogsTo, totalBlogs, errorBlogs]);
-
   const renderPagination = () => {
-    if (totalBlogs === 0) return null; 
+    if (blogs.length === 0) return null; 
 
     const pages = [];
     const maxVisible = 5;
@@ -284,7 +266,6 @@ export default function BlogPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Banner Section - HANYA Title, Subtitle, Search */}
       <div className={styles.bannerContainer}>
         <div 
           className={styles.bannerImage} 
@@ -317,101 +298,98 @@ export default function BlogPage() {
         </div>
       </div>
       
-      {/* SATU SectionTemplate untuk CONTROLS dan CONTENT */}
-      <SectionTemplate>
-        <div className={styles.mainContainer}>
-          
-          {/* Controls: Category & Sort (Berada di atas grid) */}
-          <div className={`${styles.controlsSection} ${styles.fadeInUp}`} style={{ animationDelay: '0.3s' }}>
-              
-              <div className={styles.categoriesWrapper}>
-                  {loadingCategories ? (
-                  <div className={styles.skeletonCategory}></div>
-                  ) : categoryError ? (
-                  <span className={styles.errorText}>{categoryError}</span>
-                  ) : (
-                  <div className={styles.tabsList}>
-                      <button 
-                          className={`${styles.tabBtn} ${!selectedCategory ? styles.activeTab : ''}`}
-                          onClick={() => handleCategoryChange("all")}
-                      >
-                          All
-                      </button>
-                      {categories.map((category) => (
-                          <button
-                          key={category.id}
-                          className={`${styles.tabBtn} ${selectedCategory === category.slug ? styles.activeTab : ''}`}
-                          onClick={() => handleCategoryChange(category.slug)}
-                          >
-                          {category.name}
-                          </button>
-                      ))}
-                  </div>
-                  )}
-              </div>
-
-              <div className={styles.sortWrapper}>
-                  <select 
-                  value={sortBy} 
-                  onChange={handleSortChange} 
-                  className={styles.sortSelect}
-                  >
-                  {sortOptions.map(opt => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                  ))}
-                  </select>
-                  <IconChevronDown size={14} className={styles.selectIcon} />
-              </div>
-          </div>
-
-          {/* Result Count Info */}
-          <div className={styles.resultInfo}>
-              {blogCountDisplay}
-          </div>
-
-          {/* Blog Grid */}
-          <div className={`${styles.gridSection} ${styles.fadeInUp}`} style={{ animationDelay: '0.4s' }}>
+      <div className={styles.contentOverlap}>
+        <SectionTemplate>
+          <div className={styles.mainContainer}>
             
-            {loadingBlogs && (
-              <div className={styles.gridContainer}>
-                  {Array.from({ length: 6 }).map((_, idx) => (
-                      <BlogSkeleton key={idx} />
-                  ))}
-              </div>
-            )}
+            <div className={`${styles.controlsSection} ${styles.fadeInUp}`} style={{ animationDelay: '0.3s' }}>
+                
+                <div className={styles.categoriesWrapper}>
+                    {loadingCategories ? (
+                    <div className={styles.skeletonTabsWrapper}>
+                        {[1, 2, 3, 4, 5].map((i) => (
+                           <div key={i} className={styles.skeletonTab}></div>
+                        ))}
+                    </div>
+                    ) : categoryError ? (
+                    <span className={styles.errorText}>{categoryError}</span>
+                    ) : (
+                    <div className={`${styles.tabsList} ${styles.fadeInContent}`}>
+                        <button 
+                            className={`${styles.tabBtn} ${!selectedCategory ? styles.activeTab : ''}`}
+                            onClick={() => handleCategoryChange("all")}
+                        >
+                            All
+                        </button>
+                        {categories.map((category) => (
+                            <button
+                            key={category.id}
+                            className={`${styles.tabBtn} ${selectedCategory === category.slug ? styles.activeTab : ''}`}
+                            onClick={() => handleCategoryChange(category.slug)}
+                            >
+                            {category.name}
+                            </button>
+                        ))}
+                    </div>
+                    )}
+                </div>
 
-            {errorBlogs && !loadingBlogs && (
-              <div className={styles.centerMessage}>
-                <p className={styles.errorText}>{errorBlogs}</p>
-              </div>
-            )}
-
-            {!loadingBlogs && !errorBlogs && blogs.length > 0 && (
-              <div className={styles.gridContainer}>
-                {blogs.map((blog) => (
-                  <BlogCard key={blog.id} blog={blog} />
-                ))}
-              </div>
-            )}
-
-            {!loadingBlogs && !errorBlogs && blogs.length === 0 && (
-              <div className={styles.centerMessage}>
-                <p className={styles.dimmedText}>
-                  {debouncedSearch || selectedCategory ? 'Tidak ada post yang cocok.' : 'Belum ada post.'}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Pagination */}
-          {!loadingBlogs && !errorBlogs && (
-            <div className={`${styles.paginationContainer} ${styles.fadeInUp}`} style={{ animationDelay: '0.5s' }}>
-                {renderPagination()}
+                <div className={styles.sortWrapper}>
+                    <select 
+                    value={sortBy} 
+                    onChange={handleSortChange} 
+                    className={styles.sortSelect}
+                    >
+                    {sortOptions.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                    </select>
+                    <IconChevronDown size={14} className={styles.selectIcon} />
+                </div>
             </div>
-          )}
 
-        </div>
-      </SectionTemplate>
+            <div className={`${styles.gridSection} ${styles.fadeInUp}`} style={{ animationDelay: '0.4s' }}>
+              
+              {loadingBlogs && (
+                <div className={styles.gridContainer}>
+                    {Array.from({ length: 6 }).map((_, idx) => (
+                        <BlogSkeleton key={idx} />
+                    ))}
+                </div>
+              )}
+
+              {errorBlogs && !loadingBlogs && (
+                <div className={styles.centerMessage}>
+                  <p className={styles.errorText}>{errorBlogs}</p>
+                </div>
+              )}
+
+              {!loadingBlogs && !errorBlogs && blogs.length > 0 && (
+                <div className={styles.gridContainer}>
+                  {blogs.map((blog) => (
+                    <BlogCard key={blog.id} blog={blog} />
+                  ))}
+                </div>
+              )}
+
+              {!loadingBlogs && !errorBlogs && blogs.length === 0 && (
+                <div className={styles.centerMessage}>
+                  <p className={styles.dimmedText}>
+                    {debouncedSearch || selectedCategory ? 'Tidak ada post yang cocok.' : 'Belum ada post.'}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {!loadingBlogs && !errorBlogs && (
+              <div className={`${styles.paginationContainer} ${styles.fadeInUp}`} style={{ animationDelay: '0.5s' }}>
+                  {renderPagination()}
+              </div>
+            )}
+
+          </div>
+        </SectionTemplate>
+      </div>
     </div>
   );
 }

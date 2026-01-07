@@ -1,11 +1,10 @@
 .pageWrapper {
-  background-color: transparent;
+  background-color: #f8f9fa; 
   min-height: 100vh;
   width: 100%;
   padding-top: 0;
 }
 
-/* --- Banner Section --- */
 .bannerContainer {
   width: 100%;
   height: 80vh; 
@@ -15,7 +14,8 @@
   display: flex;
   align-items: center; 
   justify-content: center;
-  z-index: 1; /* Pastikan di bawah konten blog saat overlap */
+  z-index: 1; 
+  padding-bottom: 35vh; 
 }
 
 .bannerImage {
@@ -29,6 +29,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.bannerImage::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent 0%, #f8f9fa 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .bannerOverlay {
@@ -50,7 +62,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 1. Gap Diperkecil dari 24px ke 12px agar semua elemen rapat */
   gap: 12px; 
 }
 
@@ -89,12 +100,10 @@
   width: 100%;
 }
 
-/* Banner Search */
 .bannerSearchWrapper {
   position: relative;
   width: 100%;
   max-width: 500px;
-  /* 1. Margin Bottom dihapus agar Category List nempel */
   margin-bottom: 0px; 
 }
 
@@ -126,20 +135,22 @@
   box-shadow: 0 4px 12px rgba(2, 62, 138, 0.15);
 }
 
-/* --- Controls Section (Category & Sort) inside Banner --- */
-
-/* Wrapper ini penting untuk menghilangkan padding default SectionTemplate */
-.controlsTemplateWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  /* Paksa SectionTemplate di dalamnya untuk tidak punya padding vertikal berlebih */
-  margin-top: 0;
+.contentOverlap {
+  margin-top: -35vh; 
+  position: relative;
+  z-index: 10;
+  padding: 0 20px 40px 20px;
 }
 
-/* Kita asumsikan SectionTemplate punya padding py-16, kita override lewat nesting atau margin negatif jika perlu.
-   Namun cara terbaik adalah memastikan container di dalamnya (controlsSection) tidak menambah margin.
-*/
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 0; 
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
 
 .controlsSection {
   display: flex;
@@ -148,76 +159,75 @@
   align-items: center;
   width: 100%;
   gap: 20px;
-  flex-wrap: nowrap; 
+  flex-wrap: wrap; 
+  margin-bottom: 32px; 
 }
 
 .categoriesWrapper {
   display: flex;
-  justify-content: flex-start; 
   flex: 1; 
+  min-width: 200px;
 }
 
 .tabsList {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap; 
   justify-content: flex-start; 
 }
 
 .tabBtn {
-  background: rgba(255, 255, 255, 0.7); 
-  border: 1px solid transparent;
-  padding: 10px 24px;
-  border-radius: 8px; 
-  font-size: 14px;
-  font-weight: 600;
-  color: #555;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap; 
+  background: rgba(248, 249, 250, 0.8); 
   backdrop-filter: blur(4px);
+  border: 1px solid #e9ecef;
+  padding: 8px 20px;
+  border-radius: 50px; 
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap; 
 }
 
 .tabBtn:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: #e9ecef;
   color: #023E8A;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .tabBtn.activeTab {
   background: linear-gradient(to right, #023E8A, #1C7EBA);
-  color: #fff;
+  color: #ffffff;
   border-color: transparent;
-  box-shadow: 0 4px 10px rgba(2, 62, 138, 0.3);
-  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(2, 62, 138, 0.3);
 }
 
 .sortWrapper {
   position: relative;
   width: auto;
-  min-width: 180px;
+  min-width: 160px;
   flex-shrink: 0; 
 }
 
 .sortSelect {
   width: 100%;
   appearance: none;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(2, 62, 138, 0.2);
-  border-radius: 8px; 
-  padding: 10px 32px 10px 16px;
-  font-size: 14px;
-  color: #023E8A;
-  font-weight: 600;
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(4px);
+  border: 1px solid #dee2e6;
+  border-radius: 8px; 
+  padding: 8px 32px 8px 16px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  height: 38px; 
 }
 
 .sortSelect:focus {
   outline: none;
-  background: #fff;
   border-color: #023E8A;
+  background: #fff;
 }
 
 .selectIcon {
@@ -226,33 +236,7 @@
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  color: #023E8A;
-}
-
-/* --- Blog List Section (Main Content) --- */
-
-.blogContentWrapper {
-  position: relative;
-  z-index: 10; /* Agar berada di atas banner background */
-  width: 100%;
-  /* 2. Negative Margin: Menarik konten Blog List ke atas menutupi space kosong banner */
-  margin-top: -10vh; 
-  /* Berikan background transparan agar tidak aneh, atau biarkan card menumpuk */
-}
-
-.mainContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 100%;
-  /* Background putih (opsional) agar teks terbaca jelas jika overlap background gelap */
-  /* background: #fff; */ 
-  /* padding: 20px; */
-  /* border-radius: 12px; */
-}
-
-.resultInfo {
-  margin-bottom: 10px;
+  color: #868e96;
 }
 
 .gridSection {
@@ -271,16 +255,29 @@
   align-items: center;
   height: 200px;
   width: 100%;
-  background: #fff;
+  background: rgba(248, 249, 250, 0.9);
   border-radius: 8px;
   border: 1px dashed #e9ecef;
 }
 
 .dimmedText { color: #868e96; font-size: 16px; }
 .errorText { color: #fa5252; font-size: 14px; }
-.loadingCount { height: 16px; width: 150px; background: #e9ecef; border-radius: 4px; animation: pulse 1.5s infinite; }
 
-/* Skeleton */
+/* Skeleton Styles */
+.skeletonTabsWrapper {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.skeletonTab {
+  width: 100px;
+  height: 38px;
+  border-radius: 50px;
+  background: #e9ecef;
+  animation: pulse 1.5s infinite;
+}
+
 .skeletonCard {
   border: 1px solid #e9ecef;
   border-radius: 8px;
@@ -307,7 +304,6 @@
 }
 .skeletonTitle { height: 20px; width: 90%; }
 .skeletonDate { height: 14px; width: 50%; }
-.skeletonCategory { width: 100%; height: 38px; background: #f1f3f5; border-radius: 8px; animation: pulse 1.5s infinite; }
 
 @keyframes pulse {
   0% { opacity: 1; }
@@ -315,11 +311,19 @@
   100% { opacity: 1; }
 }
 
-/* Pagination */
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fadeInContent {
+  animation: fadeInContent 0.5s ease-out forwards;
+}
+
 .paginationContainer {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 50px;
 }
 
 .paginationWrapper {
@@ -356,9 +360,10 @@
 }
 
 .pageBtn.activePage {
-  background: #023E8A;
+  background: linear-gradient(to right, #023E8A, #1C7EBA);
   color: #fff;
-  border-color: #023E8A;
+  border-color: transparent;
+  box-shadow: 0 2px 5px rgba(2, 62, 138, 0.3);
 }
 
 @keyframes fadeInUp {
@@ -376,35 +381,56 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .pageTitle { font-size: 3rem; }
+  .contentOverlap {
+    margin-top: -30vh; 
+    padding: 0 16px 40px 16px;
+  }
+  .mainContainer {
+    padding: 10px 0;
+  }
 }
 
 @media (max-width: 768px) {
-  .bannerContainer { min-height: 500px; }
+  .bannerContainer { 
+    min-height: 500px; 
+    padding-bottom: 200px; 
+  }
   .pageTitle { font-size: 2.5rem; }
   .pageSubtitle { font-size: 1rem; }
   
+  .contentOverlap {
+    margin-top: -180px; 
+  }
+  .mainContainer {
+    padding: 0;
+  }
+
   .controlsSection {
     flex-direction: column; 
-    align-items: center;
+    align-items: stretch;
     gap: 15px;
-    max-width: 100%; 
   }
   
   .categoriesWrapper {
     width: 100%;
-    justify-content: center; 
+    overflow-x: auto; 
+    padding-bottom: 5px; 
+  }
+
+  .skeletonTabsWrapper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .tabsList {
+     flex-wrap: nowrap; 
   }
   
-  .sortWrapper { width: 100%; max-width: 300px; }
+  .sortWrapper { width: 100%; }
   
   .titleGroup {
       flex-direction: column;
       gap: 10px;
-  }
-  
-  /* Pada mobile, negative margin mungkin perlu dikurangi agar tidak tertumpuk parah */
-  .blogContentWrapper {
-      margin-top: -5vh; 
   }
 }
 
@@ -413,5 +439,5 @@
     grid-template-columns: 1fr;
   }
   .pageTitle { font-size: 2rem; }
-  .bannerContainer { padding-bottom: 20px; }
+  .bannerContainer { padding-bottom: 160px; }
 }

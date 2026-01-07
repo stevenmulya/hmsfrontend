@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/CustomerAuthContext';
 import toast from 'react-hot-toast';
-import { PinInput, Button, Paper, Title, Text, Container, Center } from '@mantine/core';
+import { PinInput, Button, Paper, Title, Text, Container, Center, Box, Group } from '@mantine/core';
 import apiClient from '../api/apiClient';
 
 export default function VerifyOtp() {
@@ -14,18 +14,31 @@ export default function VerifyOtp() {
 
   const phone = location.state?.phone;
 
-  if (!phone) {
-    navigate('/register');
-    return null; 
-  }
+  useEffect(() => {
+    if (!phone) {
+      navigate('/register');
+    }
+  }, [phone, navigate]);
+
+  if (!phone) return null;
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+    if (otp.length < 6) {
+      toast.error('Silakan masukkan 6 digit kode OTP.');
+      return;
+    }
+
     setLoading(true);
     try {
-      await verifyOtp({ otp, customer_phone: phone });
+      await verifyOtp({ 
+        customer_phone: phone,
+        otp_code: otp 
+      });
+      toast.success('Verifikasi berhasil! Akun Anda telah aktif.');
+      navigate('/login');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Kode OTP salah.');
+      toast.error(err.response?.data?.message || 'Kode OTP salah atau telah kadaluwarsa.');
     } finally {
       setLoading(false);
     }
@@ -34,35 +47,88 @@ export default function VerifyOtp() {
   const handleResend = async () => {
     const toastId = toast.loading('Mengirim ulang kode...');
     try {
-        await apiClient.post('/resend-verification-otp', { customer_phone: phone });
-        toast.success('Kode baru telah dikirim!', { id: toastId });
+      await apiClient.post('/resend-verification-otp', { customer_phone: phone });
+      toast.success('Kode baru telah dikirim ke WhatsApp Anda!', { id: toastId });
     } catch (err) {
-        toast.error('Gagal mengirim ulang kode.', { id: toastId });
+      toast.error(err.response?.data?.message || 'Gagal mengirim ulang kode.', { id: toastId });
     }
   };
 
   return (
-    <Container size={420} my={40}>
-      <Title ta="center">Verifikasi Akun Anda</Title>
-      <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Kami telah mengirim kode 6 digit ke WhatsApp nomor {phone}
-      </Text>
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={handleSubmit}>
-          <Center>
-            <PinInput length={6} value={otp} onChange={setOtp} oneTimeCode autoFocus />
-          </Center>
-          <Button type="submit" fullWidth mt="xl" loading={loading}>
-            Verifikasi
-          </Button>
-        </form>
-        <Text c="dimmed" size="sm" ta="center" mt="lg">
-          Tidak menerima kode?{' '}
-          <Text component="button" size="sm" c="blue" onClick={handleResend} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>
-            Kirim Ulang
-          </Text>
+    <Box 
+      style={{ 
+        minHeight: 'calc(100vh - 140px)', 
+        paddingTop: '140px',
+        paddingBottom: '80px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}
+    >
+      <Container size={460}>
+        <Title ta="center" fw={700} c="#023E8A">Verifikasi Akun</Title>
+        <Text c="dimmed" size="sm" ta="center" mt={8}>
+          Masukkan 6 digit kode verifikasi yang kami kirim ke WhatsApp nomor <Text span fw={700} c="black">{phone}</Text>
         </Text>
-      </Paper>
-    </Container>
+
+        <Paper withBorder shadow="sm" p={40} mt={30} radius="lg">
+          <form onSubmit={handleSubmit}>
+            <Center>
+              <PinInput 
+                length={6} 
+                value={otp} 
+                onChange={setOtp} 
+                oneTimeCode 
+                autoFocus 
+                size="md"
+                type="number"
+              />
+            </Center>
+
+            <Button 
+              type="submit" 
+              fullWidth 
+              mt="xl" 
+              loading={loading}
+              size="md"
+              style={{
+                background: 'linear-gradient(135deg, #023E8A 0%, #1C7EBA 100%)',
+                border: 'none',
+                height: '46px',
+                fontWeight: 600
+              }}
+            >
+              Verifikasi Sekarang
+            </Button>
+          </form>
+
+          <Group justify="center" mt="xl" gap="xs">
+            <Text size="sm" c="dimmed">
+              Tidak menerima kode?
+            </Text>
+            <Button 
+              variant="transparent" 
+              size="sm" 
+              p={0} 
+              onClick={handleResend}
+              style={{ height: 'auto', fontWeight: 600 }}
+            >
+              Kirim Ulang
+            </Button>
+          </Group>
+        </Paper>
+
+        <Text 
+          c="blue" 
+          size="sm" 
+          ta="center" 
+          mt="xl" 
+          style={{ cursor: 'pointer', fontWeight: 500 }} 
+          onClick={() => navigate('/register')}
+        >
+          Ganti nomor telepon?
+        </Text>
+      </Container>
+    </Box>
   );
 }

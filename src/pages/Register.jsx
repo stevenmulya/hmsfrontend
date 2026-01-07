@@ -77,7 +77,6 @@ export default function Register() {
     
     let dataToSubmit = { ...values, customer_role: role };
     
-    // Clean up data based on role
     if (role === 'personal') {
       Object.keys(dataToSubmit).forEach(key => { 
         if (key.startsWith('company_')) { 
@@ -99,8 +98,12 @@ export default function Register() {
 
     try {
       await register(formData);
-      toast.success('Registrasi berhasil! Silakan login.');
-      navigate('/login');
+      toast.success('Registrasi berhasil! Kode OTP telah dikirim ke WhatsApp Anda.');
+      navigate('/verify-otp', { 
+        state: { 
+          phone: values.customer_phone 
+        } 
+      });
     } catch (error) {
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors);
@@ -116,15 +119,14 @@ export default function Register() {
   return (
     <Box 
       style={{ 
-        minHeight: 'calc(100vh - 140px)', // PERBAIKAN: Pastikan ada ruang untuk footer
+        minHeight: 'calc(100vh - 140px)',
         paddingTop: '100px',
-        paddingBottom: '60px', // PERBAIKAN: Tambah padding bottom
+        paddingBottom: '60px',
         display: 'flex',
         flexDirection: 'column'
       }}
     >
       <Container size={680} style={{ flex: 1 }}>
-        {/* Header Section */}
         <Box ta="center" mb={30}>
           <Title order={2} fw={700} c="#023E8A">
             Buat Akun Baru
@@ -137,12 +139,10 @@ export default function Register() {
           </Text>
         </Box>
 
-        {/* Registration Form */}
         <Paper withBorder shadow="sm" p={35} radius="lg">
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <ErrorDisplay errors={errors} />
 
-            {/* Role Selection */}
             <Box mb="xl">
               <Text fw={500} size="sm" mb="xs">
                 Tipe Akun
@@ -160,7 +160,6 @@ export default function Register() {
               />
             </Box>
 
-            {/* Basic Information */}
             <Title order={4} mb="md" c="#023E8A">
               Informasi Dasar
             </Title>
@@ -223,7 +222,6 @@ export default function Register() {
               />
             </SimpleGrid>
 
-            {/* Personal Account Specific */}
             {role === 'personal' && (
               <Box mt="xl">
                 <Title order={4} mb="md" c="#023E8A">
@@ -241,7 +239,6 @@ export default function Register() {
               </Box>
             )}
 
-            {/* Company Account Specific */}
             {role === 'company' && (
               <Box mt="xl">
                 <Title order={4} mb="md" c="#023E8A">
@@ -300,7 +297,6 @@ export default function Register() {
               </Box>
             )}
 
-            {/* Submit Button */}
             <Button 
               fullWidth 
               mt="xl" 
@@ -320,7 +316,6 @@ export default function Register() {
           </form>
         </Paper>
 
-        {/* Footer Note */}
         <Text c="dimmed" size="xs" ta="center" mt="lg" mb="xl">
           Dengan mendaftar, Anda menyetujui syarat dan ketentuan yang berlaku.
         </Text>
