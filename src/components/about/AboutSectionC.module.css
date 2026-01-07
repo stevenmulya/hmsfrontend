@@ -1,9 +1,13 @@
-/* sections/about/AboutSectionC.module.css */
-
 .sectionContent {
   width: 100%;
   padding: 80px 0;
-  background: #ffffff;
+  background: transparent;
+  position: relative;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .container {
@@ -16,44 +20,43 @@
   display: grid;
   grid-template-columns: 40% 60%;
   gap: 60px;
-  align-items: start;
+  align-items: stretch;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
-/* Left Column: Image Stack - 40% */
 .imageColumn {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  height: auto; /* Akan di-set via JS */
+  height: 100%; 
+  min-height: 500px;
 }
 
 .imageContainer {
   position: relative;
   width: 100%;
+  flex: 1;
   overflow: hidden;
-  border-radius: 4px; /* Diperkecil dari 12px */
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
-.imageTop,
-.imageBottom {
+.imageBg {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
-.imageContainer:hover .imageTop,
-.imageContainer:hover .imageBottom {
-  transform: scale(1.05);
+.imageContainer:hover .imageBg {
+  transform: scale(1.08);
 }
 
-/* Right Column: Content - 60% */
 .contentColumn {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .contentWrapper {
@@ -76,11 +79,13 @@
 }
 
 .icon {
+  width: 35px;
+  height: 35px;
   flex-shrink: 0;
 }
 
 .profileTitle {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 800;
   margin: 0;
   background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
@@ -89,7 +94,6 @@
   background-clip: text;
   letter-spacing: 1px;
   text-transform: uppercase;
-  text-align: left;
   white-space: nowrap;
 }
 
@@ -109,13 +113,13 @@
 }
 
 .descriptionContainer {
-  padding-right: 40px;
+  padding-right: 20px;
 }
 
 .descriptionText {
   font-size: 18px;
-  line-height: 1.5;
-  color: #333333;
+  line-height: 1.6;
+  color: #444444;
   margin: 0 0 25px 0;
   text-align: justify;
 }
@@ -124,39 +128,20 @@
   margin-bottom: 0;
 }
 
-/* Warna untuk kata kunci */
 .highlighted {
   color: #023E8A;
   font-weight: 700;
 }
 
-/* Responsive Styles */
 @media (max-width: 1200px) {
-  .container {
-    padding: 0 30px;
-  }
-  
-  .gridLayout {
-    gap: 50px;
-  }
-  
-  .profileTitle {
-    font-size: 32px;
-  }
-  
-  .descriptionText {
-    font-size: 17px;
-  }
-  
-  .goldDash {
-    max-width: 500px;
-  }
+  .container { padding: 0 30px; }
+  .gridLayout { gap: 40px; }
+  .profileTitle { font-size: 28px; }
+  .goldDash { max-width: 450px; }
 }
 
 @media (max-width: 992px) {
-  .sectionContent {
-    padding: 60px 0;
-  }
+  .sectionContent { padding: 60px 0; }
   
   .gridLayout {
     grid-template-columns: 1fr;
@@ -164,141 +149,71 @@
   }
   
   .imageColumn {
-    max-width: 600px;
+    height: auto;
+    min-height: auto;
+    flex-direction: column;
+    max-width: 700px;
     margin: 0 auto;
-    height: auto !important;
+    width: 100%;
+  }
+
+  .imageContainer {
+    height: 300px;
+    width: 100%;
+    flex: none;
   }
   
   .contentColumn {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
   }
   
-  .imageContainer {
-    height: 300px !important;
+  .titleWrapper { align-items: center; }
+  .titleContainer { justify-content: center; }
+  .dashContainer { justify-content: center; }
+  .goldDash { 
+    transform: none; 
+    max-width: 350px;
   }
   
-  .titleWrapper {
-    align-items: center;
-  }
-  
-  .profileTitle {
-    text-align: center;
-  }
-  
-  .dashContainer {
-    justify-content: center;
-  }
-  
-  .descriptionContainer {
-    padding-right: 0;
-  }
-  
-  .descriptionText {
-    text-align: center;
-  }
-  
-  .goldDash {
-    max-width: 400px;
-  }
+  .descriptionContainer { padding-right: 0; }
+  .descriptionText { text-align: center; }
 }
 
 @media (max-width: 768px) {
-  .sectionContent {
-    padding: 50px 0;
+  .sectionContent { padding: 50px 0; }
+  .container { padding: 0 20px; }
+  
+  .imageColumn { gap: 20px; }
+  
+  .imageContainer { height: 220px; }
+  
+  .titleContainer { 
+    flex-direction: column; 
+    gap: 10px; 
+    margin-bottom: 15px;
   }
   
-  .container {
-    padding: 0 20px;
+  .icon { width: 32px; height: 32px; }
+  .profileTitle { font-size: 24px; white-space: normal; text-align: center; }
+  
+  .goldDash { 
+    max-width: 250px; 
+    border-bottom-width: 4px; 
+    margin-bottom: 10px;
   }
   
-  .imageColumn {
-    gap: 20px;
-  }
-  
-  .imageContainer {
-    height: 250px !important;
-  }
-  
-  .titleContainer {
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 12px;
-  }
-  
-  .profileTitle {
-    font-size: 28px;
-    text-align: center;
-    white-space: normal;
-  }
-  
-  .goldDash {
-    max-width: 350px;
-    border-bottom-width: 4px;
-  }
-  
-  .descriptionText {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
+  .descriptionText { font-size: 16px; margin-bottom: 20px; }
 }
 
 @media (max-width: 576px) {
-  .sectionContent {
-    padding: 40px 0;
-  }
+  .sectionContent { padding: 40px 0; }
+  .container { padding: 0 15px; }
   
-  .container {
-    padding: 0 15px;
-  }
+  .imageContainer { height: 180px; }
   
-  .imageContainer {
-    height: 200px !important;
-  }
+  .profileTitle { font-size: 22px; }
+  .descriptionText { font-size: 15px; }
   
-  .icon {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .profileTitle {
-    font-size: 24px;
-  }
-  
-  .goldDash {
-    max-width: 300px;
-  }
-  
-  .descriptionText {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 400px) {
-  .sectionContent {
-    padding: 30px 0;
-  }
-  
-  .imageContainer {
-    height: 180px !important;
-  }
-  
-  .icon {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .profileTitle {
-    font-size: 20px;
-  }
-  
-  .goldDash {
-    max-width: 250px;
-    border-bottom-width: 3px;
-  }
-  
-  .descriptionText {
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
+  .goldDash { max-width: 200px; }
 }

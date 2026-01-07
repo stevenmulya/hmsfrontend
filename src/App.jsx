@@ -19,6 +19,7 @@ import HowToBuyPage from './pages/HowToBuyPage';
 import BlogPage from './pages/BlogPage';
 import BlogDetailPage from './pages/BlogDetailPage';
 import AboutPage from './pages/AboutPage';
+import FaqPage from './pages/FaqPage'; // Import file baru
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/quotation-success" element={<QuotationSuccessPage />} />
           <Route path="/terms-conditions" element={<TermsConditionsPage />} />
           <Route path="/how-to-buy" element={<HowToBuyPage />} />
+          <Route path="/faq" element={<FaqPage />} /> {/* Route baru */}
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blogs/:blogSlug" element={<BlogDetailPage />} />
           <Route path="/about" element={<AboutPage />} />

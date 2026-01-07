@@ -1,11 +1,9 @@
-// sections/about/AboutSectionC.jsx
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import styles from './AboutSectionC.module.css';
 import SectionTemplate from '../../components/section/SectionTemplate';
 
-// Icon component
 const BuildingIcon = () => (
-  <svg className={styles.icon} width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2">
+  <svg className={styles.icon} viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2">
     <path d="M3 21l18 0" />
     <path d="M5 21v-14l7 -3v4" />
     <path d="M9 10l0 11" />
@@ -16,16 +14,10 @@ const BuildingIcon = () => (
 );
 
 export default function AboutSectionC() {
-  const contentRef = useRef(null);
-  const imageColumnRef = useRef(null);
-  const [imageHeight, setImageHeight] = useState(0);
-
-  // Fungsi untuk menambahkan warna pada kata kunci dengan pengecualian
   const highlightKeywords = (text, paragraphNumber) => {
-    // Kata kunci yang di-highlight
     const keywords = paragraphNumber <= 2 ? 
       ['pembangunan', 'konstruksi', 'tepat waktu', 'harga yang kompetitif'] :
-      ['pembangunan', 'tepat waktu', 'harga yang kompetitif']; // Konstruksi di paragraf 3-4 tidak dihighlight
+      ['pembangunan', 'tepat waktu', 'harga yang kompetitif'];
     
     return text.split(/(pembangunan|konstruksi|tepat waktu|harga yang kompetitif)/gi).map((part, index) => {
       const lowerPart = part.toLowerCase();
@@ -36,63 +28,27 @@ export default function AboutSectionC() {
     });
   };
 
-  useEffect(() => {
-    const updateImageHeight = () => {
-      if (contentRef.current) {
-        const contentHeight = contentRef.current.offsetHeight;
-        // Tinggi setiap image = (tinggi konten - gap) / 2
-        const calculatedHeight = (contentHeight - 30) / 2;
-        setImageHeight(calculatedHeight);
-        
-        // Update height image column
-        if (imageColumnRef.current) {
-          imageColumnRef.current.style.height = `${contentHeight}px`;
-        }
-      }
-    };
-
-    // Gunakan setTimeout untuk memastikan DOM sudah di-render
-    setTimeout(updateImageHeight, 100);
-    window.addEventListener('resize', updateImageHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateImageHeight);
-    };
-  }, []);
-
   return (
     <SectionTemplate>
       <div className={styles.sectionContent}>
         <div className={styles.container}>
           <div className={styles.gridLayout}>
-            {/* Kiri: Dua Image Stack - 40% */}
-            <div className={styles.imageColumn} ref={imageColumnRef}>
-              <div 
-                className={styles.imageContainer}
-                style={{ height: `${imageHeight}px` }}
-              >
+            <div className={styles.imageColumn}>
+              <div className={styles.imageContainer}>
                 <div 
-                  className={styles.imageTop}
-                  style={{
-                    backgroundImage: `url('/AboutHeroThree.jpg')`
-                  }}
+                  className={styles.imageBg}
+                  style={{ backgroundImage: `url('/AboutHeroThree.jpg')` }}
                 />
               </div>
-              <div 
-                className={styles.imageContainer}
-                style={{ height: `${imageHeight}px` }}
-              >
+              <div className={styles.imageContainer}>
                 <div 
-                  className={styles.imageBottom}
-                  style={{
-                    backgroundImage: `url('/AboutHeroFour.jpg')`
-                  }}
+                  className={styles.imageBg}
+                  style={{ backgroundImage: `url('/AboutHeroFour.jpg')` }}
                 />
               </div>
             </div>
 
-            {/* Kanan: Company Profile - 60% */}
-            <div className={styles.contentColumn} ref={contentRef}>
+            <div className={styles.contentColumn}>
               <div className={styles.contentWrapper}>
                 <div className={styles.titleWrapper}>
                   <div className={styles.titleContainer}>

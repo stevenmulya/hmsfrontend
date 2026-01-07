@@ -1,0 +1,77 @@
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #FAFAFA;
+}
+
+.contentContainer {
+  position: relative;
+  z-index: 2;
+}
+
+.ornament {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.blueGlowTop {
+  top: -100px;
+  right: -100px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(28, 126, 186, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(60px);
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.dotsLeft {
+  top: 15vh;
+  left: 0;
+  opacity: 0.6;
+}
+
+.blueGlowBottom {
+  bottom: 0;
+  left: -200px;
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(ellipse at bottom left, rgba(2, 62, 138, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(80px);
+  opacity: 0.7;
+}
+
+@media (max-width: 992px) {
+  .blueGlowTop {
+    width: 500px;
+    height: 500px;
+    right: -50px;
+  }
+  
+  .blueGlowBottom {
+    width: 500px;
+    height: 500px;
+    left: -100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .blueGlowTop {
+    width: 350px;
+    height: 350px;
+    opacity: 0.6;
+  }
+  
+  .dotsLeft {
+    width: 60px;
+    top: 10vh;
+  }
+  
+  .blueGlowBottom {
+    width: 400px;
+    height: 400px;
+    opacity: 0.6;
+  }
+}

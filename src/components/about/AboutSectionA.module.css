@@ -1,12 +1,21 @@
-/* sections/about/AboutSectionA.module.css */
-
 .sectionContent {
   width: 100%;
   padding: 0;
   position: relative;
+  margin-top: 20px;
 }
 
-/* Hero Image Section */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .heroImage {
   position: relative;
   width: 100%;
@@ -17,7 +26,17 @@
   background-repeat: no-repeat;
 }
 
-/* Vision Container - Menimpa image */
+.heroImage::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(2, 62, 138, 0.25) 0%, rgba(2, 62, 138, 0.0) 100%);
+  z-index: 1;
+}
+
 .visionContainer {
   position: relative;
   z-index: 2;
@@ -26,27 +45,28 @@
   padding-bottom: 60px;
 }
 
-/* Vision Box */
 .visionBox {
   background: white;
-  padding: 50px 0px;
+  padding: 40px 0px;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   border: 1px solid #023E8A;
-  border-bottom: 10px solid #1C7EBA;
+  border-bottom: 20px solid #1C7EBA;
   width: fit-content;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
   text-align: center;
   position: relative;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
 }
 
-/* Title Wrapper */
 .titleWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   width: 100%;
 }
 
@@ -54,17 +74,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 20px;
   margin-bottom: 15px;
   position: relative;
 }
 
 .icon {
   flex-shrink: 0;
+  width: 35px;
+  height: 35px;
 }
 
 .visionTitle {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 800;
   margin: 0;
   background: linear-gradient(90deg, #023E8A 0%, #1C7EBA 100%);
@@ -76,7 +98,6 @@
   white-space: nowrap;
 }
 
-/* Dash Container - lebar persis sama dengan icon + title */
 .dashContainer {
   display: flex;
   justify-content: center;
@@ -84,8 +105,7 @@
 }
 
 .goldDash {
-  /* Lebar dash = width icon (40px) + gap (25px) + width text (≈250px untuk "OUR VISION") */
-  width: calc(40px + 25px + 250px); /* 1. Lebar persis sama dengan icon + title */
+  width: calc(35px + 20px + 210px); 
   height: 0;
   border-bottom: 5px dashed #FFDF01;
   transform: skewX(-20deg);
@@ -94,231 +114,87 @@
 }
 
 .visionContent {
-  padding: 0 70px;
+  padding: 0 50px;
 }
 
 .visionText {
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1.6;
-  color: #333333;
+  color: #444444;
   text-align: center;
-  margin: 0;
+  margin: 0 auto;
   font-weight: 500;
-  max-width: 800px;
+  max-width: 700px;
 }
 
-/* Responsive Styles */
 @media (max-width: 1200px) {
-  .heroImage {
-    height: 35vh;
-  }
-  
-  .visionContainer {
-    margin-top: -100px;
-  }
-  
-  .visionBox {
-    max-width: 800px;
-  }
-  
-  .goldDash {
-    width: calc(40px + 25px + 230px); /* Sesuaikan untuk tablet besar */
-  }
-  
-  .visionContent {
-    padding: 0 60px;
-  }
+  .heroImage { height: 35vh; }
+  .visionBox { max-width: 750px; }
 }
 
 @media (max-width: 992px) {
-  .heroImage {
-    height: 30vh;
-    min-height: 250px;
-  }
+  .sectionContent { margin-top: 70px; }
+  .heroImage { height: 30vh; min-height: 250px; }
+  .visionContainer { margin-top: -80px; padding-bottom: 50px; }
+  .visionBox { max-width: 650px; }
   
-  .visionContainer {
-    margin-top: -80px;
-    padding-bottom: 50px;
-  }
+  .visionTitle { font-size: 28px; }
+  .visionText { font-size: 17px; }
   
-  .visionBox {
-    max-width: 700px;
-  }
-  
-  .visionTitle {
-    font-size: 32px;
-  }
-  
-  .visionText {
-    font-size: 22px;
-  }
-  
-  .icon {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .goldDash {
-    width: calc(36px + 25px + 210px); /* Sesuaikan untuk tablet */
-    border-bottom-width: 5px;
-  }
-  
-  .visionContent {
-    padding: 0 50px;
-  }
+  .icon { width: 32px; height: 32px; }
+  .goldDash { width: calc(32px + 20px + 190px); border-bottom-width: 4px; }
+  .visionContent { padding: 0 40px; }
 }
 
 @media (max-width: 768px) {
-  .heroImage {
-    height: 25vh;
-    min-height: 200px;
-  }
+  .sectionContent { margin-top: 60px; }
+  .heroImage { height: 25vh; min-height: 200px; }
+  .visionContainer { margin-top: -60px; padding-bottom: 40px; }
   
-  .visionContainer {
-    margin-top: -60px;
-    padding-bottom: 40px;
-  }
-  
-  .visionBox {
-    max-width: 600px;
+  .visionBox { 
+    max-width: 90%;
     border-radius: 12px;
+    border-bottom-width: 15px;
+    padding: 35px 0;
   }
   
-  .titleContainer {
-    gap: 20px;
-    margin-bottom: 15px;
-  }
+  .titleContainer { gap: 15px; }
+  .visionTitle { font-size: 24px; }
+  .visionText { font-size: 16px; line-height: 1.5; }
   
-  .visionTitle {
-    font-size: 28px;
-  }
-  
-  .visionText {
-    font-size: 20px;
-    line-height: 1.5;
-  }
-  
-  .icon {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .goldDash {
-    width: calc(32px + 20px + 180px); /* Sesuaikan untuk mobile landscape */
-    border-bottom-width: 4px;
-  }
-  
-  .visionContent {
-    padding: 0 35px;
-  }
+  .icon { width: 28px; height: 28px; }
+  .goldDash { width: calc(28px + 15px + 160px); }
+  .visionContent { padding: 0 30px; }
 }
 
 @media (max-width: 576px) {
-  .heroImage {
-    height: 20vh;
-    min-height: 150px;
+  .heroImage { height: 20vh; min-height: 150px; }
+  .visionContainer { margin-top: -50px; padding-bottom: 30px; }
+  
+  .visionBox { 
+    width: 92%;
+    max-width: 400px;
+    border-radius: 12px;
+    padding: 30px 0;
   }
   
-  .visionContainer {
-    margin-top: -50px;
-    padding-bottom: 30px;
+  .titleContainer { 
+    flex-direction: column; 
+    gap: 10px; 
+    margin-bottom: 15px;
   }
   
-  .visionBox {
-    max-width: 450px;
-    border-radius: 10px;
+  .icon { width: 32px; height: 32px; }
+  .visionTitle { font-size: 22px; }
+  
+  .visionText { font-size: 15px; line-height: 1.6; }
+  
+  .goldDash { 
+    width: 150px;
+    margin-bottom: 20px; 
+    transform: none;
+    border-bottom-width: 4px;
   }
   
-  .titleContainer {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .icon {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .visionTitle {
-    font-size: 24px;
-  }
-  
-  .visionText {
-    font-size: 18px;
-  }
-  
-  .goldDash {
-    width: calc(28px + 15px + 150px); /* Sesuaikan untuk mobile portrait */
-    margin-bottom: 25px;
-  }
-  
-  .visionContent {
-    padding: 0 20px;
-  }
-}
-
-@media (max-width: 400px) {
-  .heroImage {
-    height: 15vh;
-    min-height: 120px;
-  }
-  
-  .visionContainer {
-    margin-top: -40px;
-    padding-bottom: 25px;
-  }
-  
-  .visionBox {
-    max-width: 350px;
-  }
-  
-  .visionTitle {
-    font-size: 20px;
-  }
-  
-  .visionText {
-    font-size: 16px;
-  }
-  
-  .icon {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .goldDash {
-    width: calc(24px + 10px + 120px); /* Sesuaikan untuk mobile kecil */
-    border-bottom-width: 3px;
-    margin-bottom: 20px;
-  }
-  
-  .visionContent {
-    padding: 0 15px;
-  }
-}
-
-@media (max-width: 320px) {
-  .visionBox {
-    max-width: 300px;
-  }
-  
-  .visionTitle {
-    font-size: 18px;
-  }
-  
-  .visionText {
-    font-size: 15px;
-  }
-  
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .goldDash {
-    width: calc(20px + 10px + 100px); /* Sesuaikan untuk mobile sangat kecil */
-  }
-  
-  .visionContent {
-    padding: 0 12px;
-  }
+  .visionContent { padding: 0 25px; }
 }
