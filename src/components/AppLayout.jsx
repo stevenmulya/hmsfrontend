@@ -72,77 +72,6 @@ function useSocials() {
   return { socials, loading };
 }
 
-function CartDropdown({ items, onCheckout, onRemoveItem, getItemSubtotal, getTotalPrice, formatPrice }) {
-  return (
-    <Menu.Dropdown>
-      <Menu.Label>
-        Keranjang Belanja ({items.length} items)
-      </Menu.Label>
-      
-      {items.length === 0 ? (
-        <Box p="md" className={styles.cartEmptyState}>
-          <Text size="sm" c="dimmed">
-            Keranjang belanja kosong
-          </Text>
-        </Box>
-      ) : (
-        <>
-          <ScrollArea h={280}>
-            {items.map((item) => {
-              const productName = item.product_name || item.name || 'Unknown Product';
-              const productPrice = Number(item.product_price || item.price || 0);
-              const subtotal = getItemSubtotal ? getItemSubtotal(item) : (productPrice * item.quantity);
-              
-              return (
-                <Box key={item.id} p="xs" className={styles.cartItem}>
-                  <Group justify="space-between">
-                    <Box style={{ flex: 1 }}>
-                      <Text size="sm" fw={500} lineClamp={1}>
-                        {productName}
-                      </Text>
-                      <Group gap="xs" wrap="nowrap">
-                        <Text size="sm" c="dimmed">
-                          {item.quantity} x {formatPrice(productPrice)}
-                        </Text>
-                        <Badge size="sm" color="blue">
-                          {formatPrice(subtotal)}
-                        </Badge>
-                      </Group>
-                    </Box>
-                    <ActionIcon
-                      color="red"
-                      size="sm"
-                      onClick={() => onRemoveItem(item.id)}
-                    >
-                      <IconTrash size={14} />
-                    </ActionIcon>
-                  </Group>
-                </Box>
-              );
-            })}
-          </ScrollArea>
-          
-          <Box p="md" className={styles.cartTotalSection}>
-            <Group justify="space-between" mb="sm">
-              <Text fw={600}>Total:</Text>
-              <Text fw={600} color="blue">
-                {formatPrice(getTotalPrice())}
-              </Text>
-            </Group>
-            <Button
-              fullWidth
-              onClick={onCheckout}
-              className={styles.checkoutButton}
-            >
-              Checkout
-            </Button>
-          </Box>
-        </>
-      )}
-    </Menu.Dropdown>
-  );
-}
-
 function MobileCartButton({ items, onClick }) {
   return (
     <Indicator label={items.length} size={16} offset={4} disabled={items.length === 0}>
@@ -511,7 +440,6 @@ function WhatsAppFloatingButton({ socials, createWhatsAppLink }) {
         </Popover.Target>
         
         <Popover.Dropdown p={0} className={styles.whatsappDropdown}>
-          {/* Header */}
           <Box className={styles.whatsappHeader}>
             <Group gap="sm" align="center">
               <IconBrandWhatsapp size={28} color="white" stroke={2} />
@@ -522,7 +450,6 @@ function WhatsAppFloatingButton({ socials, createWhatsAppLink }) {
             </Group>
           </Box>
           
-          {/* List Contacts */}
           <Stack gap={0} bg="white">
             {whatsappContacts.map((wa, index) => {
               const waLink = createWhatsAppLink(wa.url);
@@ -536,7 +463,7 @@ function WhatsAppFloatingButton({ socials, createWhatsAppLink }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.whatsappItem}
-                  style={{ textDecoration: 'none' }} // Ensure no underline
+                  style={{ textDecoration: 'none' }}
                 >
                   <Group gap="md" wrap="nowrap" align="center">
                     <ThemeIcon 
@@ -574,24 +501,13 @@ function WhatsAppFloatingButton({ socials, createWhatsAppLink }) {
 }
 
 export default function AppLayout() {
-  const { items, removeFromCart, getTotalPrice, getItemSubtotal } = useCart();
+  const { items } = useCart();
   const { customer, logout } = useAuth();
   const navigate = useNavigate();
 
   const [opened, { toggle, close }] = useDisclosure(false);
-  const [cartDropdownOpened, setCartDropdownOpened] = useState(false);
   const isMobile = useMediaQuery('(max-width: 768px)');
   const { socials, loading: loadingSocials } = useSocials();
-
-  const userInitials = useMemo(() => {
-    if (!customer?.customer_name) return 'U';
-    return customer.customer_name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
-  }, [customer?.customer_name]);
 
   const handleLogout = () => {
     logout();
@@ -599,42 +515,17 @@ export default function AppLayout() {
     navigate('/');
   };
 
-  const handleCheckout = () => {
-    setCartDropdownOpened(false);
-    navigate('/checkout');
-  };
-
-  const handleRemoveFromCart = (productId) => {
-    removeFromCart(productId);
-  };
-
-  const formatPrice = (price) => {
-    return `Rp ${Number(price || 0).toLocaleString('id-ID')}`;
-  };
-
-  // --- FUNGSI REVISI LINK WHATSAPP ---
-  // Fungsi ini dipanggil untuk memastikan format selalu benar
   const createWhatsAppLink = (urlOrNumber) => {
     if (!urlOrNumber) return '#';
     const cleanedInput = String(urlOrNumber).trim();
-    
-    // 1. Ambil hanya digitnya saja, abaikan karakter lain (termasuk huruf di URL)
     let number = cleanedInput.replace(/\D/g, '');
-    
-    // Jika kosong, return #
     if (!number) return '#';
-
-    // 2. Normalisasi awalan nomor
-    // Jika diawali 0, ganti jadi 62
     if (number.startsWith('0')) {
         number = '62' + number.substring(1);
     } 
-    // Jika belum ada 62 di depan (misal inputnya 812...), tambahkan 62
     else if (!number.startsWith('62')) {
         number = '62' + number;
     }
-      
-    // 3. Return format yang pasti bisa dibuka
     return `https://wa.me/${number}`;
   };
 
@@ -740,9 +631,7 @@ export default function AppLayout() {
                         >
                           Profile
                         </Menu.Item>
-                        
                         <Menu.Divider />
-                        
                         <Menu.Item
                           color="red"
                           leftSection={<IconLogout size={16} />}
@@ -753,36 +642,18 @@ export default function AppLayout() {
                       </Menu.Dropdown>
                     </Menu>
 
-                    <Menu
-                      position="bottom-end"
-                      width={360}
-                      transition="pop-top-right"
-                      withinPortal
-                      opened={cartDropdownOpened}
-                      onChange={setCartDropdownOpened}
-                    >
-                      <Menu.Target>
-                        <Indicator label={items.length} size={16} disabled={items.length === 0} className={styles.cartBadge}>
-                          <ActionIcon
-                            variant="subtle"
-                            color="white"
-                            aria-label="Keranjang Belanja"
-                            className={styles.iconButton}
-                            size="lg"
-                          >
-                            <IconShoppingCart size={20}/>
-                          </ActionIcon>
-                        </Indicator>
-                      </Menu.Target>
-                      <CartDropdown
-                        items={items}
-                        onCheckout={handleCheckout}
-                        onRemoveItem={handleRemoveFromCart}
-                        getItemSubtotal={getItemSubtotal}
-                        getTotalPrice={getTotalPrice}
-                        formatPrice={formatPrice}
-                      />
-                    </Menu>
+                    <Indicator label={items.length} size={16} disabled={items.length === 0} className={styles.cartBadge}>
+                      <ActionIcon
+                        onClick={() => navigate('/checkout')}
+                        variant="subtle"
+                        color="white"
+                        aria-label="Keranjang Belanja"
+                        className={styles.iconButton}
+                        size="lg"
+                      >
+                        <IconShoppingCart size={20}/>
+                      </ActionIcon>
+                    </Indicator>
                   </>
                 ) : (
                   <>

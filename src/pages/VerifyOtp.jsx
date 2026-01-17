@@ -8,11 +8,13 @@ import apiClient from '../api/apiClient';
 export default function VerifyOtp() {
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
-  const { verifyOtp } = useAuth();
+  const { verifyOtp, updateProfile } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
   const phone = location.state?.phone;
+  const isUpdatingPhone = location.state?.isUpdatingPhone;
+  const pendingData = location.state?.pendingData;
 
   useEffect(() => {
     if (!phone) {
@@ -31,12 +33,30 @@ export default function VerifyOtp() {
 
     setLoading(true);
     try {
-      await verifyOtp({ 
-        customer_phone: phone,
-        otp_code: otp 
-      });
-      toast.success('Verifikasi berhasil! Akun Anda telah aktif.');
-      navigate('/login');
+      if (isUpdatingPhone) {
+        await apiClient.post('/verify-otp-update-phone', {
+          customer_phone: phone,
+          otp_code: otp
+        });
+
+        const formData = new FormData();
+        for (const key in pendingData) {
+          if (pendingData[key] !== null && pendingData[key] !== undefined) {
+            formData.append(key, pendingData[key]);
+          }
+        }
+        
+        await updateProfile(formData);
+        toast.success('Nomor telepon dan profil berhasil diperbarui!');
+        navigate('/profile');
+      } else {
+        await verifyOtp({ 
+          customer_phone: phone,
+          otp_code: otp 
+        });
+        toast.success('Verifikasi berhasil! Akun Anda telah aktif.');
+        navigate('/login');
+      }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Kode OTP salah atau telah kadaluwarsa.');
     } finally {
@@ -47,8 +67,10 @@ export default function VerifyOtp() {
   const handleResend = async () => {
     const toastId = toast.loading('Mengirim ulang kode...');
     try {
-      await apiClient.post('/resend-verification-otp', { customer_phone: phone });
-      toast.success('Kode baru telah dikirim ke WhatsApp Anda!', { id: toastId });
+      const endpoint = isUpdatingPhone ? '/send-otp-update-phone' : '/resend-verification-otp';
+      const payload = isUpdatingPhone ? { new_phone: phone } : { customer_phone: phone };
+      await apiClient.post(endpoint, payload);
+      toast.success('Kode baru telah dikirim!', { id: toastId });
     } catch (err) {
       toast.error(err.response?.data?.message || 'Gagal mengirim ulang kode.', { id: toastId });
     }
@@ -66,9 +88,11 @@ export default function VerifyOtp() {
       }}
     >
       <Container size={460}>
-        <Title ta="center" fw={700} c="#023E8A">Verifikasi Akun</Title>
+        <Title ta="center" fw={700} c="#023E8A">
+          {isUpdatingPhone ? 'Verifikasi Nomor Baru' : 'Verifikasi Akun'}
+        </Title>
         <Text c="dimmed" size="sm" ta="center" mt={8}>
-          Masukkan 6 digit kode verifikasi yang kami kirim ke WhatsApp nomor <Text span fw={700} c="black">{phone}</Text>
+          Masukkan 6 digit kode yang kami kirim ke WhatsApp <Text span fw={700} c="black">{phone}</Text>
         </Text>
 
         <Paper withBorder shadow="sm" p={40} mt={30} radius="lg">
@@ -98,14 +122,12 @@ export default function VerifyOtp() {
                 fontWeight: 600
               }}
             >
-              Verifikasi Sekarang
+              {isUpdatingPhone ? 'Konfirmasi Perubahan' : 'Verifikasi Sekarang'}
             </Button>
           </form>
 
           <Group justify="center" mt="xl" gap="xs">
-            <Text size="sm" c="dimmed">
-              Tidak menerima kode?
-            </Text>
+            <Text size="sm" c="dimmed">Tidak menerima kode?</Text>
             <Button 
               variant="transparent" 
               size="sm" 
@@ -124,9 +146,9 @@ export default function VerifyOtp() {
           ta="center" 
           mt="xl" 
           style={{ cursor: 'pointer', fontWeight: 500 }} 
-          onClick={() => navigate('/register')}
+          onClick={() => navigate(isUpdatingPhone ? '/profile' : '/register')}
         >
-          Ganti nomor telepon?
+          {isUpdatingPhone ? 'Kembali ke Profile' : 'Ganti nomor telepon?'}
         </Text>
       </Container>
     </Box>
