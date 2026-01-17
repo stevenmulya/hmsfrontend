@@ -13,7 +13,8 @@ import {
   IconChevronLeft, 
   IconChevronRight, 
   IconChevronsLeft, 
-  IconChevronsRight 
+  IconChevronsRight,
+  IconCategory
 } from '@tabler/icons-react';
 
 const sortOptions = [
@@ -23,7 +24,7 @@ const sortOptions = [
   { value: 'name_desc', label: 'Judul Z-A' },
 ];
 
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 12;
 
 function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -55,6 +56,7 @@ export default function BlogPage() {
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [errorBlogs, setErrorBlogs] = useState(null);
   const [categoryError, setCategoryError] = useState(null);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -185,6 +187,7 @@ export default function BlogPage() {
 
   const handleCategoryChange = (slug) => {
      updateSearchParams({ category: slug === "all" ? null : slug }, true);
+     setIsCategoryOpen(false);
   };
 
    const handleSortChange = (e) => {
@@ -198,6 +201,8 @@ export default function BlogPage() {
        window.scrollTo({ top: 400, behavior: 'smooth' });
      }
   };
+
+  const activeCategoryName = categories.find(c => c.slug === selectedCategory)?.name || "All Categories";
 
   const renderPagination = () => {
     if (blogs.length === 0) return null; 
@@ -306,43 +311,54 @@ export default function BlogPage() {
                 
                 <div className={styles.categoriesWrapper}>
                     {loadingCategories ? (
-                    <div className={styles.skeletonTabsWrapper}>
-                        {[1, 2, 3, 4, 5].map((i) => (
-                           <div key={i} className={styles.skeletonTab}></div>
-                        ))}
-                    </div>
+                        <div className={styles.skeletonTabsWrapper}>
+                            <div className={styles.skeletonTab}></div>
+                        </div>
                     ) : categoryError ? (
-                    <span className={styles.errorText}>{categoryError}</span>
+                        <span className={styles.errorText}>{categoryError}</span>
                     ) : (
-                    <div className={`${styles.tabsList} ${styles.fadeInContent}`}>
-                        <button 
-                            className={`${styles.tabBtn} ${!selectedCategory ? styles.activeTab : ''}`}
-                            onClick={() => handleCategoryChange("all")}
-                        >
-                            All
-                        </button>
-                        {categories.map((category) => (
-                            <button
-                            key={category.id}
-                            className={`${styles.tabBtn} ${selectedCategory === category.slug ? styles.activeTab : ''}`}
-                            onClick={() => handleCategoryChange(category.slug)}
+                        <div className={styles.categoryDropdownContainer}>
+                            <button 
+                                className={styles.mobileCategoryBtn}
+                                onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                             >
-                            {category.name}
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <IconCategory size={18} />
+                                    <span>{activeCategoryName}</span>
+                                </div>
+                                <IconChevronDown size={18} className={isCategoryOpen ? styles.rotateIcon : ''} />
                             </button>
-                        ))}
-                    </div>
+
+                            <div className={`${styles.tabsList} ${isCategoryOpen ? styles.showMobileMenu : ''}`}>
+                                <button 
+                                    className={`${styles.tabBtn} ${!selectedCategory ? styles.activeTab : ''}`}
+                                    onClick={() => handleCategoryChange("all")}
+                                >
+                                    All Categories
+                                </button>
+                                {categories.map((category) => (
+                                    <button
+                                        key={category.id}
+                                        className={`${styles.tabBtn} ${selectedCategory === category.slug ? styles.activeTab : ''}`}
+                                        onClick={() => handleCategoryChange(category.slug)}
+                                    >
+                                        {category.name}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     )}
                 </div>
 
                 <div className={styles.sortWrapper}>
                     <select 
-                    value={sortBy} 
-                    onChange={handleSortChange} 
-                    className={styles.sortSelect}
+                        value={sortBy} 
+                        onChange={handleSortChange} 
+                        className={styles.sortSelect}
                     >
-                    {sortOptions.map(opt => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
+                        {sortOptions.map(opt => (
+                            <option key={opt.value} value={opt.value}>{opt.label}</option>
+                        ))}
                     </select>
                     <IconChevronDown size={14} className={styles.selectIcon} />
                 </div>
