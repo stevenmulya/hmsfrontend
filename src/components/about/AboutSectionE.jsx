@@ -59,7 +59,7 @@ export default function AboutSectionE() {
                 style={{ height: contentHeight > 0 ? `${contentHeight}px` : 'auto' }}
               >
                 <img 
-                  src="/AboutMap.png" 
+                  src="/aboutpage-map.png" 
                   alt="Company Location Map" 
                   className={styles.mapImage}
                 />

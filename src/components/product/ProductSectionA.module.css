@@ -46,7 +46,7 @@
   height: 60vh; 
   min-height: 400px;
   max-height: 600px;
-  background-image: url('/productbanner.png');
+  background-image: url('/productpage-banner.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -246,7 +246,7 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    background-image: url('/productbanner.png') !important;
+    background-image: url('/productpage-banner.png') !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -295,6 +295,6 @@
 
 @media (min-resolution: 192dpi) {
   .bannerWrapper {
-    background-image: url('/productbanner@2x.png');
+    background-image: url('/productpage-banner@2x.png');
   }
 }

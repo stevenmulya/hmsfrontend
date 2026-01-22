@@ -5,23 +5,23 @@ import PrimaryButton from '../Button/PrimaryButton';
 
 const slidesData = [
   {
-    image: 'homeheroA.jpg',
+    image: 'homepage-heroA.jpg',
     alt: 'Banner 1',
   },
   {
-    image: 'homeheroB.jpg',
+    image: 'homepage-heroB.jpg',
     alt: 'Banner 2',
   },
   {
-    image: 'homeheroC.jpg',
+    image: 'homepage-heroC.jpg',
     alt: 'Banner 3',
   },
   {
-    image: 'homeheroD.jpg',
+    image: 'homepage-heroD.jpg',
     alt: 'Banner 4',
   },
   {
-    image: 'homeheroE.jpg',
+    image: 'homepage-heroE.jpg',
     alt: 'Banner 5',
   }
 ];
