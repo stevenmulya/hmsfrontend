@@ -5,8 +5,7 @@ import { Container, Box, Title, Text, Anchor, Stack, List } from '@mantine/core'
 import { Link } from 'react-router-dom';
 import styles from './TermsConditionsPage.module.css';
 
-// 3. Menggunakan gambar termsbanner.jpg
-const BANNER_IMAGE = '/termsbanner.jpg'; // Pastikan gambar ini ada di folder public/
+const BANNER_IMAGE = '/otherpage-banner.jpg'; // Pastikan gambar ini ada di folder public/
 
 export default function TermsConditionsPage() {
   useEffect(() => {

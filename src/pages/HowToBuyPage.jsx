@@ -16,7 +16,7 @@ import {
 } from '@tabler/icons-react';
 
 // Ganti dengan gambar banner Anda
-const BANNER_IMAGE = '/termsbanner.jpg'; // Menggunakan gambar yang sama, pastikan ada di public/
+const BANNER_IMAGE = '/otherpage-banner.jpg'; // Menggunakan gambar yang sama, pastikan ada di public/
 
 // Definisikan langkah-langkah
 const tutorialSteps = [
