@@ -18,11 +18,12 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      {/* === UBAH DI SINI === */}
-      {/* Ganti 'dark' menjadi 'light' */}
+    {/* === PERBAIKAN UTAMA DI SINI === */}
+    {/* Tambahkan basename agar Router sadar ia ada di dalam folder hmsfrontend */}
+    <BrowserRouter basename="/hmsfrontend">
+    {/* =============================== */}
+    
       <MantineProvider theme={theme} defaultColorScheme="light">
-      {/* ==================== */}
         <Toaster position="top-right" />
         <CustomerAuthProvider>
           <CartProvider>

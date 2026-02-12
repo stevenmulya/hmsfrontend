@@ -131,7 +131,7 @@ function MobileDrawer({
           <Group justify="space-between" mb="xl">
             <Group gap="sm">
               <Image
-                src="/hmslogo.png"
+                src="hmslogo.png"
                 h={30}
                 w={30}
                 fit="contain"
@@ -560,7 +560,7 @@ export default function AppLayout() {
             onClick={close}
           >
             <Image
-              src="/hmslogo.png"
+              src="hmslogo.png"
               h={40}
               w={40}
               fit="contain"

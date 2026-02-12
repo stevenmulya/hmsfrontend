@@ -37,13 +37,13 @@ export default function AboutSectionC() {
               <div className={styles.imageContainer}>
                 <div 
                   className={styles.imageBg}
-                  style={{ backgroundImage: `url('/aboutpage-companyA.jpg')` }}
+                  style={{ backgroundImage: `url('aboutpage-companyA.jpg')` }}
                 />
               </div>
               <div className={styles.imageContainer}>
                 <div 
                   className={styles.imageBg}
-                  style={{ backgroundImage: `url('/aboutpage-companyB.jpg')` }}
+                  style={{ backgroundImage: `url('aboutpage-companyB.jpg')` }}
                 />
               </div>
             </div>

@@ -105,7 +105,7 @@ export default function Footer() {
           <Grid.Col span={{ base: 12, sm: 6, md: 4 }} className={styles.footerColumn}>
             <Stack align="flex-start" gap="sm">
               <Image
-                src="/hmslogo.png"
+                src="hmslogo.png"
                 h={90}
                 w="auto"
                 fit="contain"

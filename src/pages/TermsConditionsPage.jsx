@@ -5,7 +5,7 @@ import { Container, Box, Title, Text, Anchor, Stack, List } from '@mantine/core'
 import { Link } from 'react-router-dom';
 import styles from './TermsConditionsPage.module.css';
 
-const BANNER_IMAGE = '/otherpage-banner.jpg'; // Pastikan gambar ini ada di folder public/
+const BANNER_IMAGE = 'otherpage-banner.jpg'; // Pastikan gambar ini ada di folder public/
 
 export default function TermsConditionsPage() {
   useEffect(() => {

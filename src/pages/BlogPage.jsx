@@ -68,7 +68,7 @@ export default function BlogPage() {
   const debouncedSearch = useDebounce(search, 500);
 
   const [totalPages, setTotalPages] = useState(1);
-  const bannerImageUrl = '/blogpage-banner.png'; 
+  const bannerImageUrl = 'blogpage-banner.png'; 
   const abortControllerRef = useRef(null);
 
   useEffect(() => {

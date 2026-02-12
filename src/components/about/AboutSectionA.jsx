@@ -17,7 +17,7 @@ export default function AboutSectionA() {
         <div 
           className={styles.heroImage}
           style={{
-            backgroundImage: `url('/aboutpage-vision.jpg')`
+            backgroundImage: `url('aboutpage-vision.jpg')`
           }}
         >
         </div>

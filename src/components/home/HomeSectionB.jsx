@@ -65,7 +65,7 @@ export default function HomeSectionB() {
           
           <div className={styles.cardGrid}>
             <div className={styles.card} style={{ transitionDelay: '0.1s' }}>
-              <img src="/homepage-whyA.png" alt="Customer Service" className={styles.cardImage} />
+              <img src="homepage-whyA.png" alt="Customer Service" className={styles.cardImage} />
               <div className={styles.cardContent}>
                 <h3 className={styles.cardTitle}>CUSTOMER SERVICE</h3>
                 <div className={styles.cardSeparator}></div> 
@@ -76,7 +76,7 @@ export default function HomeSectionB() {
             </div>
 
             <div className={styles.card} style={{ transitionDelay: '0.3s' }}>
-              <img src="/homepage-whyB.png" alt="Cargo Shipment" className={styles.cardImage} />
+              <img src="homepage-whyB.png" alt="Cargo Shipment" className={styles.cardImage} />
               <div className={styles.cardContent}>
                 <h3 className={styles.cardTitle}>CARGO SHIPMENT</h3>
                 <div className={styles.cardSeparator}></div>
@@ -87,7 +87,7 @@ export default function HomeSectionB() {
             </div>
 
             <div className={styles.card} style={{ transitionDelay: '0.5s' }}>
-              <img src="/homepage-whyC.png" alt="Fast, Cheap, and Guaranteed Delivery" className={styles.cardImage} />
+              <img src="homepage-whyC.png" alt="Fast, Cheap, and Guaranteed Delivery" className={styles.cardImage} />
               <div className={styles.cardContent}>
                 <h3 className={styles.cardTitle}>FAST, CHEAP, AND GUARANTEED DELIVERY</h3>
                 <div className={styles.cardSeparator}></div>
